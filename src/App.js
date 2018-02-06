@@ -1,30 +1,38 @@
+import 'babel-polyfill'
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { FORM_LOADED, FORM_LOADING, endLoadForm, startLoadForm } from './actions';
-import { createStore } from 'redux';
+// import { getFormData } from './actions';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 // import Form from './components/Form';
 import FormContainer from './containers/FormContainer';
 import { Provider } from 'react-redux';
 import datagenApp from './reducers/Datagenapp';
+import thunkMiddleware from 'redux-thunk'
+import { createLogger } from 'redux-logger'
+
+const loggerMiddleware = createLogger();
 
 let store = createStore(
     datagenApp,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    composeWithDevTools(
+        applyMiddleware(
+            thunkMiddleware,
+            loggerMiddleware
+        )
+    )
 );
-
-console.log(store.getState());
 
 const unsubscribe = store.subscribe(() =>
     console.log(store.getState())
 );
 
-store.dispatch(startLoadForm());
-// store.dispatch(endLoadForm());
+// store.dispatch(getFormData())
+//     .then(() => console.log(store.getState()))
+// ;
 
 unsubscribe();
-
-
 
 class App extends Component {
     render() {

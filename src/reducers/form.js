@@ -1,4 +1,4 @@
-import {FORM_LOADED, FORM_LOADING} from "../actions";
+import {FORM_LOADED_SUCCESS, FORM_LOADING} from "../actions";
 
 const initialState =  {
     loaded: false,
@@ -7,18 +7,17 @@ const initialState =  {
 };
 
 function form(state = initialState, action) {
-    // console.log('FormReducer!');
-    // console.log(state);
-
-
     switch (action.type) {
         case FORM_LOADING:
             return Object.assign({}, state,{
+                loaded: false,
                 loading: true
             });
-        case FORM_LOADED:
+        case FORM_LOADED_SUCCESS:
             return Object.assign({}, state,{
-                loaded: true
+                loaded: true,
+                loading: false,
+                data: action.data
             });
 
         default:

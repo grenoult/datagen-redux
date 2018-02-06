@@ -1,46 +1,37 @@
+import React from 'react'
 import { connect } from 'react-redux'
-import { toggleTodo } from '../actions'
+import { getFormData } from '../actions'
 import Form from '../components/Form'
 
-const loadForm = (state, action) => {
-    switch (action) {
-        case 'FORM_LOADED':
-            return Object.assign({}, state, {
-                loaded: true
-            });
-        case 'FORM_LOADING':
-            return Object.assign({}, state, {
-                loaded: false,
-                data: state.data.push()
-            });
-        default:
-            return state;
-    }
-};
+class Feeds extends React.Component {
 
-const mapStateToProps = state => {
-    console.log("State!");
-    console.log(state);
-    return {
-        state: {
-            form: {
-                loaded: loadForm(state.form, state.action)
-            }
-        }
+    componentDidMount() {
+        console.log('Mounted');
+        // console.log(this.props.getFormData());
+        this.props.getFormData();
     }
-};
 
-const mapDispatchToProps = dispatch => {
-    return {
-        // onTodoClick: id => {
-        //     dispatch(toggleTodo(id))
-        // }
+    render() {
+        return (<div>
+            <Form
+                isLoading={this.props.loading}
+                onClick={this.props.onLoadedClick}
+            />
+        </div>);
     }
+}
+
+const mapStateToProps = state => ({
+    loading: state.form.loading
+});
+
+const mapDispatchToProps = {
+    getFormData
 };
 
 const FormContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Form);
+)(Feeds);
 
 export default FormContainer
