@@ -1,9 +1,10 @@
-import {FORM_LOADED_SUCCESS, FORM_LOADING} from "../actions";
+import {FORM_ADD_ROW, FORM_LOADED_SUCCESS, FORM_LOADING} from "../actions";
 
 const initialState =  {
     loaded: false,
     loading: false,
-    data: []
+    data: [],
+    criteria: []
 };
 
 function form(state = initialState, action) {
@@ -18,6 +19,11 @@ function form(state = initialState, action) {
                 loaded: true,
                 loading: false,
                 data: action.data
+            });
+        case FORM_ADD_ROW:
+            state.criteria.push(action.criteria);
+            return Object.assign({}, state,{
+                criteria: state.criteria
             });
 
         default:

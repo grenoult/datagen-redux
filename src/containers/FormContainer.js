@@ -1,13 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getFormData } from '../actions'
+import { getFormData, addFormRow } from '../actions'
 import Form from '../components/Form'
 
 class Feeds extends React.Component {
 
     componentDidMount() {
-        console.log('Mounted');
-        // console.log(this.props.getFormData());
         this.props.getFormData();
     }
 
@@ -15,19 +13,20 @@ class Feeds extends React.Component {
         return (<div>
             <Form
                 isLoading={this.props.loading}
-                onClick={this.props.onLoadedClick}
+                onAddRow={this.props.addFormRow}
             />
         </div>);
     }
 }
 
 const mapStateToProps = state => ({
-    loading: state.form.loading
+    loading: state.form.loading,
 });
 
-const mapDispatchToProps = {
-    getFormData
-};
+const mapDispatchToProps = dispatch => ({
+    getFormData: () => dispatch(getFormData()),
+    addFormRow: criteria => dispatch(addFormRow(criteria))
+});
 
 const FormContainer = connect(
     mapStateToProps,

@@ -3,6 +3,7 @@
  export const FORM_LOADING = 'FORM_LOADING';
  export const FORM_LOADED_SUCCESS = 'FORM_LOADED_SUCCESS';
  export const FORM_LOADED_FAILURE = 'FORM_LOADED_FAILURE';
+ export const FORM_ADD_ROW = 'FORM_ADD_ROW';
 
  export function startLoadForm() {
      return { type: FORM_LOADING }
@@ -15,6 +16,12 @@
      }
  };
 
+ export const addFormRow = function(criteria) {
+     return {
+         type: FORM_ADD_ROW,
+         criteria: criteria
+     }
+ };
 
 // Async actions
 export const getFormData = () => {
@@ -23,7 +30,8 @@ export const getFormData = () => {
 
         // TODO put URL in somewhere better
 
-        return fetch('http://randomdata.info:8081/api/fields')
+        // return fetch('http://randomdata.info:8081/api/fields')
+        return fetch('http://192.168.33.10:8081/api/fields')
             .then(
                 response => response.json(),
                 error => console.log('An error occurred.', error)
