@@ -14,6 +14,7 @@ class Feeds extends React.Component {
             <Form
                 isLoading={this.props.loading}
                 onAddRow={this.props.addFormRow}
+                criteriaList={this.props.criteriaList}
             />
         </div>);
     }
@@ -21,6 +22,7 @@ class Feeds extends React.Component {
 
 const mapStateToProps = state => ({
     loading: state.form.loading,
+    criteriaList: state.form.criteria
 });
 
 const mapDispatchToProps = dispatch => ({

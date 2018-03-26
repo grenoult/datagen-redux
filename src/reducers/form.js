@@ -4,7 +4,7 @@ const initialState =  {
     loaded: false,
     loading: false,
     data: [],
-    criteria: []
+    criteria: [{}]
 };
 
 function form(state = initialState, action) {
@@ -21,7 +21,7 @@ function form(state = initialState, action) {
                 data: action.data
             });
         case FORM_ADD_ROW:
-            state.criteria.push(action.criteria);
+            state.criteria.push({ text: Date.now() });
             return Object.assign({}, state,{
                 criteria: state.criteria
             });
