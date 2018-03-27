@@ -25,10 +25,10 @@ const mapStateToProps = state => ({
     criteriaList: state.form.criteria
 });
 
-const mapDispatchToProps = dispatch => ({
-    getFormData: () => dispatch(getFormData()),
-    addFormRow: criteria => dispatch(addFormRow(criteria))
-});
+const mapDispatchToProps = {
+    getFormData,
+    addFormRow
+};
 
 const FormContainer = connect(
     mapStateToProps,
