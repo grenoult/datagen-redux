@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getFormData, addFormRow } from '../actions'
+import FormRowContainer from '../components/FormRow'
 import Form from '../components/Form'
 
 class Feeds extends React.Component {

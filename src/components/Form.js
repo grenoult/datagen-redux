@@ -1,13 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FormRow from './FormRow'
+import FormRowContainer from '../containers/FormRowContainer'
+import FormRow from '../components/FormRow';
 
 const Form = ({ isLoading, onAddRow, criteriaList }) => (
     <div>
+        {
+            criteriaList.map((criteria, i) => (
+                <FormRowContainer key={i} data={criteria}/>
+            ))
+        }
         { criteriaList.length }
         { isLoading.toString() }
         <button onClick={() => onAddRow() }>Add</button>
-        {criteriaList.map((o, i) => <FormRow key={i}/>)}
     </div>
 
 
