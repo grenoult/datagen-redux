@@ -6,8 +6,12 @@ import FormRow from '../components/FormRow';
 const Form = ({ isLoading, onAddRow, criteriaList }) => (
     <div>
         {
+            /**
+             * We don't pass "i" as key because it can be a mess when moving rows order.
+             * Also, child doesn't have access to key, so we pass id.
+             */
             criteriaList.map((criteria, i) => (
-                <FormRowContainer key={i} data={criteria}/>
+                <FormRowContainer key={criteriaList.length} id={criteriaList.length} data={criteria}/>
             ))
         }
         { criteriaList.length }

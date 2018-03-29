@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const FormRow = ({id, formData}) => (
+const FormRow = ({id, formData, changeRowType}) => (
     <div>
         <input id={id} type="text" name="fieldName"/>
-        <select>
+        <select onChange={event => changeRowType(id, event.target.value)}>
             <option value="" disabled>Type</option>
             {formData.map(function(field, i) {
                 return (
@@ -14,21 +14,6 @@ const FormRow = ({id, formData}) => (
                 )
             })}
         </select>
-        /*
-        <select ref="mySelectBox">
-            <option value="" disabled selected>{this.props.availableFields[this.props.fieldSelected].options.name}</option>
-            {
-                Object.keys(subTypes).map(function (key) {
-                    var label = subTypes[key]
-                    return (
-                        <option key={key} value={key}>
-                            {label}
-                        </option>
-                    )
-                })
-            }
-        </select>
-        */
     </div>
 );
 
@@ -38,3 +23,19 @@ FormRow.propTypes = {
 };
 
 export default FormRow
+
+/*
+ <select ref="mySelectBox">
+ <option value="" disabled selected>{this.props.availableFields[this.props.fieldSelected].options.name}</option>
+ {
+     Object.keys(subTypes).map(function (key) {
+         var label = subTypes[key]
+         return (
+             <option key={key} value={key}>
+                 {label}
+             </option>
+         )
+     })
+ }
+ </select>
+ */
