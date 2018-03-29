@@ -20,15 +20,14 @@
 export const changeRowType = function(rowId, fieldTypeValue) {
     return {
         type: FORM_ROW_TYPE_CHANGED,
-        rowId: rowId,
-        fieldTypeValue: fieldTypeValue
+        id: rowId,
+        value: fieldTypeValue
     }
 };
 
- export const addFormRow = function(criteria) {
+ export const addFormRow = function() {
      return {
-         type: FORM_ADD_ROW,
-         criteria: criteria
+         type: FORM_ADD_ROW
      }
  };
 

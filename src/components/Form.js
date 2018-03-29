@@ -11,16 +11,13 @@ const Form = ({ isLoading, onAddRow, criteriaList }) => (
              * Also, child doesn't have access to key, so we pass id.
              */
             criteriaList.map((criteria, i) => (
-                <FormRowContainer key={criteriaList.length} id={criteriaList.length} data={criteria}/>
+                <FormRowContainer key={criteria.id} id={criteria.id}/>
             ))
         }
         { criteriaList.length }
         { isLoading.toString() }
         <button onClick={() => onAddRow() }>Add</button>
     </div>
-
-
-
 );
 
 // Form.propTypes = {
