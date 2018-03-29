@@ -4,6 +4,7 @@
  export const FORM_LOADED_SUCCESS = 'FORM_LOADED_SUCCESS';
  export const FORM_LOADED_FAILURE = 'FORM_LOADED_FAILURE';
  export const FORM_ADD_ROW = 'FORM_ADD_ROW';
+ export const FORM_ROW_TYPE_CHANGED = 'FORM_ROW_TYPE_CHANGED';
 
  export function startLoadForm() {
      return { type: FORM_LOADING }
@@ -15,6 +16,14 @@
          data: data
      }
  };
+
+export const changeRowType = function(rowId, fieldTypeValue) {
+    return {
+        type: FORM_ROW_TYPE_CHANGED,
+        rowId: rowId,
+        fieldTypeValue: fieldTypeValue
+    }
+};
 
  export const addFormRow = function(criteria) {
      return {
