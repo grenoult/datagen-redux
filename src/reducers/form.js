@@ -29,12 +29,17 @@ function form(state = initialState, action) {
                 criteria: [...state.criteria, { id: newId }]
             };
         case FORM_ROW_TYPE_CHANGED:
-            let clonedState = Object.assign({}, state);
-            let i = getCriteriaIndexById(clonedState.criteria, action.id);
-            if (i !== null) {
-                clonedState.criteria[i].type = action.value;
-            }
-            return clonedState;
+            debugger;
+            // let criteria = [...state.criteria];
+            let newCriteria = Object.assign({}, state.criteria);
+            let i = getCriteriaIndexById(newCriteria, action.id);
+
+            newCriteria[i].type = action.value;
+
+            return {
+                ...state,
+                criteria: newCriteria
+            };
 
         default:
             return state;

@@ -11,7 +11,7 @@ const Form = ({ isLoading, onAddRow, criteriaList }) => (
              * Also, child doesn't have access to key, so we pass id.
              */
             criteriaList.map((criteria, i) => (
-                <FormRowContainer key={criteria.id} id={criteria.id}/>
+                <FormRowContainer key={criteria.id} id={criteria.id} criteria={criteria}/>
             ))
         }
         { criteriaList.length }

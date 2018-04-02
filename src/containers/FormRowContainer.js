@@ -5,6 +5,9 @@ import { changeRowType } from '../actions'
 import { getCriteriaIndexById } from '../reducers/form'
 
 class FormRowContainer extends React.Component {
+    componentDidMount() {
+        console.log(this.props.criteria)
+    }
 
     render() {
         return (
@@ -12,16 +15,18 @@ class FormRowContainer extends React.Component {
             <FormRow
                 formData={this.props.formData}
                 changeRowType={this.props.changeRowType}
+                criteria={this.props.criteria}
                 id={this.props.id}
-                criteria={getCriteriaIndexById(this.props.criteriaList, this.props.id)}
+                type={this.props.type}
             />
+            {this.props.criteria.id} - {this.props.criteria.type}
         </div>);
     }
 }
 
 const mapStateToProps = state => ({
     formData: state.form.data,
-    criteriaList: state.form.criteriaList
+    // criteria: state.form.criteria,
 });
 
 const mapDispatchToProps = {
