@@ -1,13 +1,18 @@
-import {FORM_ADD_ROW, FORM_LOADED_SUCCESS, FORM_LOADING, FORM_ROW_TYPE_CHANGED} from "../actions";
+import {
+    FORM_ADD_ROW, FORM_LOADED_SUCCESS, FORM_LOADING, FORM_ROW_NAME_CHANGED, FORM_ROW_SUBTYPE_CHANGED,
+    FORM_ROW_TEXTINPUT_CHANGED,
+    FORM_ROW_TYPE_CHANGED
+} from "../actions";
 
 const initialState =  {
     loaded: false,
     loading: false,
     data: [],
-    criteria: [{id: 1}]
+    criteria: [{id: 1, type: 0}]
 };
 
 function form(state = initialState, action) {
+    let newCriteria, i, newCriteriaRow;
     switch (action.type) {
         case FORM_LOADING:
             return {
@@ -29,12 +34,62 @@ function form(state = initialState, action) {
                 criteria: [...state.criteria, { id: newId }]
             };
         case FORM_ROW_TYPE_CHANGED:
-            debugger;
-            // let criteria = [...state.criteria];
-            let newCriteria = Object.assign({}, state.criteria);
-            let i = getCriteriaIndexById(newCriteria, action.id);
+            newCriteria = [...state.criteria]; // Clone array of criteria
+            i = newCriteria.findIndex(newCriteriaRow => newCriteriaRow.id === action.id); // get array index
+            newCriteriaRow = Object.assign({}, state.criteria[i]); // Clone criteria object
 
-            newCriteria[i].type = action.value;
+            // Update values
+            newCriteriaRow.type = action.value;
+            newCriteria[i] = newCriteriaRow;
+
+            // Remove subtype, if any
+            if (newCriteriaRow.subtype) {
+                delete newCriteriaRow.subtype;
+            }
+
+            // Remove textinput, if any
+            if (newCriteriaRow.textinput) {
+                delete newCriteriaRow.textinput;
+            }
+
+            return {
+                ...state,
+                criteria: newCriteria
+            };
+        case FORM_ROW_SUBTYPE_CHANGED:
+            newCriteria = [...state.criteria]; // Clone array of criteria
+            i = newCriteria.findIndex(newCriteriaRow => newCriteriaRow.id === action.id); // get array index
+            newCriteriaRow = Object.assign({}, state.criteria[i]); // Clone criteria object
+
+            // Update values
+            newCriteriaRow.subtype = action.value;
+            newCriteria[i] = newCriteriaRow;
+
+            return {
+                ...state,
+                criteria: newCriteria
+            };
+        case FORM_ROW_TEXTINPUT_CHANGED:
+            newCriteria = [...state.criteria]; // Clone array of criteria
+            i = newCriteria.findIndex(newCriteriaRow => newCriteriaRow.id === action.id); // get array index
+            newCriteriaRow = Object.assign({}, state.criteria[i]); // Clone criteria object
+
+            // Update values
+            newCriteriaRow.textinput = action.value;
+            newCriteria[i] = newCriteriaRow;
+
+            return {
+                ...state,
+                criteria: newCriteria
+            };
+        case FORM_ROW_NAME_CHANGED:
+            newCriteria = [...state.criteria]; // Clone array of criteria
+            i = newCriteria.findIndex(newCriteriaRow => newCriteriaRow.id === action.id); // get array index
+            newCriteriaRow = Object.assign({}, state.criteria[i]); // Clone criteria object
+
+            // Update values
+            newCriteriaRow.name = action.value;
+            newCriteria[i] = newCriteriaRow;
 
             return {
                 ...state,
@@ -60,22 +115,6 @@ export const getBiggestCriteriaId = function(state) {
         }
     }
     return maxId;
-}
-
-/**
- * Get array index of criteria of given id, or null if not found.
- *
- * @param criteriaList
- * @param id
- * @returns {*}
- */
-export const getCriteriaIndexById = function(criteriaList, id) {
-    for (let i in criteriaList) {
-        if (criteriaList.hasOwnProperty(i) && criteriaList[i].id === id) {
-            return i;
-        }
-    }
-    return null;
-}
+};
 
 export default form;

@@ -1,36 +1,35 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import FormRow from '../components/FormRow'
-import { changeRowType } from '../actions'
-import { getCriteriaIndexById } from '../reducers/form'
+import { changeRowType, changeRowSubType, changeRowTextInput, changeRowName } from '../actions'
 
 class FormRowContainer extends React.Component {
-    componentDidMount() {
-        console.log(this.props.criteria)
-    }
-
     render() {
         return (
         <div>
             <FormRow
                 formData={this.props.formData}
                 changeRowType={this.props.changeRowType}
+                changeRowSubType={this.props.changeRowSubType}
+                changeRowTextInput={this.props.changeRowTextInput}
+                changeRowName={this.props.changeRowName}
                 criteria={this.props.criteria}
                 id={this.props.id}
                 type={this.props.type}
             />
-            {this.props.criteria.id} - {this.props.criteria.type}
         </div>);
     }
 }
 
 const mapStateToProps = state => ({
     formData: state.form.data,
-    // criteria: state.form.criteria,
 });
 
 const mapDispatchToProps = {
-    changeRowType: changeRowType
+    changeRowType: changeRowType,
+    changeRowSubType: changeRowSubType,
+    changeRowTextInput: changeRowTextInput,
+    changeRowName: changeRowName
 };
 
 const FormContainer = connect(
