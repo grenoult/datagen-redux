@@ -5,7 +5,8 @@ import {
     FORM_ROW_NAME_CHANGED,
     FORM_ROW_SUBTYPE_CHANGED,
     FORM_ROW_TEXTINPUT_CHANGED,
-    FORM_ROW_TYPE_CHANGED
+    FORM_ROW_TYPE_CHANGED,
+    FORM_ROW_REMOVED
 } from "../actions";
 
 const initialState =  {
@@ -100,6 +101,16 @@ function form(state = initialState, action) {
                 ...state,
                 criteria: newCriteria
             };
+        case FORM_ROW_REMOVED:
+            newCriteria = [...state.criteria].filter(function(row) {
+                console.log(row.id !== this);
+                return row.id !== this;
+            }, action.id);
+
+            return {
+                ...state,
+                criteria: newCriteria
+            };
 
         default:
             return state;
@@ -113,7 +124,7 @@ function form(state = initialState, action) {
  * @returns {number}
  */
 export const getBiggestCriteriaId = function(state) {
-    let maxId = 1;
+    let maxId = 0;
     for (let i in state.criteria) {
         if (state.criteria.hasOwnProperty(i) && state.criteria[i].id > maxId) {
             maxId = state.criteria[i].id;

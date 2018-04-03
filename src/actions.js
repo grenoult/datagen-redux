@@ -8,6 +8,7 @@
  export const FORM_ROW_SUBTYPE_CHANGED = 'FORM_ROW_SUBTYPE_CHANGED';
  export const FORM_ROW_TEXTINPUT_CHANGED = 'FORM_ROW_TEXTINPUT_CHANGED';
  export const FORM_ROW_NAME_CHANGED = 'FORM_ROW_NAME_CHANGED';
+ export const FORM_ROW_REMOVED = 'FORM_ROW_REMOVED';
 
 export function startLoadForm() {
     return { type: FORM_LOADING }
@@ -52,11 +53,18 @@ export const changeRowName = function(rowId, value) {
     }
 };
 
- export const addFormRow = function() {
-     return {
-         type: FORM_ADD_ROW
-     }
- };
+export const addFormRow = function() {
+    return {
+        type: FORM_ADD_ROW
+    }
+};
+
+export const removeFormRow = function(rowId) {
+    return {
+        type: FORM_ROW_REMOVED,
+        id: rowId
+    }
+};
 
 // Async actions
 export const getFormData = () => {

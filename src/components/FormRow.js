@@ -1,7 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const FormRow = ({id, formData, changeRowType, changeRowSubType, changeRowTextInput, changeRowName, criteria}) => (
+const FormRow = ({
+    id,
+    formData,
+    changeRowType,
+    changeRowSubType,
+    changeRowTextInput,
+    changeRowName,
+    removeFormRow,
+    criteria,
+    criteriaLength
+    }) => (
     <div>
         <input id={id} type="text" name="fieldName" onChange={event => changeRowName(id, event.target.value)}/>
         <select onChange={event => changeRowType(id, event.target.value)}>
@@ -16,6 +26,7 @@ const FormRow = ({id, formData, changeRowType, changeRowSubType, changeRowTextIn
         </select>
         <Subtype rowId={id} criteria={criteria} formData={formData} changeRowSubType={changeRowSubType}/>
         <Textinput rowId={id} criteria={criteria} formData={formData} changeRowTextInput={changeRowTextInput}/>
+        <Removebutton rowId={id} criteriaLength={criteriaLength} removeFormRow={removeFormRow}/>
     </div>
 );
 
@@ -64,7 +75,7 @@ function Textinput(props)
     let i = props.criteria.type;
 
     if (!props || !props.criteria || !props.formData[i] || !props.formData[i].textinput) {
-        return (<div/>)
+        return null
     }
 
     return (
@@ -72,6 +83,24 @@ function Textinput(props)
                onChange={event => props.changeRowTextInput(props.rowId, event.target.value)}
                placeholder={props.formData[i].textinputplaceholder}
         />
+    )
+}
+
+/**
+ * Shows remove button
+ *
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
+function Removebutton(props)
+{
+    if (props.criteriaLength <= 1) {
+        return null
+    }
+
+    return (
+        <button onClick={() => props.removeFormRow(props.rowId)}>Remove {props.criteriaLength} </button>
     )
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import FormRow from '../components/FormRow'
-import { changeRowType, changeRowSubType, changeRowTextInput, changeRowName } from '../actions'
+import {changeRowType, changeRowSubType, changeRowTextInput, changeRowName, removeFormRow} from '../actions'
 
 class FormRowContainer extends React.Component {
     render() {
@@ -13,7 +13,9 @@ class FormRowContainer extends React.Component {
                 changeRowSubType={this.props.changeRowSubType}
                 changeRowTextInput={this.props.changeRowTextInput}
                 changeRowName={this.props.changeRowName}
+                removeFormRow={this.props.removeFormRow}
                 criteria={this.props.criteria}
+                criteriaLength={this.props.criteriaLength}
                 id={this.props.id}
                 type={this.props.type}
             />
@@ -23,13 +25,15 @@ class FormRowContainer extends React.Component {
 
 const mapStateToProps = state => ({
     formData: state.form.data,
+    criteriaLength: state.form.criteria.length
 });
 
 const mapDispatchToProps = {
     changeRowType: changeRowType,
     changeRowSubType: changeRowSubType,
     changeRowTextInput: changeRowTextInput,
-    changeRowName: changeRowName
+    changeRowName: changeRowName,
+    removeFormRow: removeFormRow
 };
 
 const FormContainer = connect(
