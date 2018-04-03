@@ -1,5 +1,9 @@
 import {
-    FORM_ADD_ROW, FORM_LOADED_SUCCESS, FORM_LOADING, FORM_ROW_NAME_CHANGED, FORM_ROW_SUBTYPE_CHANGED,
+    FORM_ADD_ROW,
+    FORM_LOADED_SUCCESS,
+    FORM_LOADING,
+    FORM_ROW_NAME_CHANGED,
+    FORM_ROW_SUBTYPE_CHANGED,
     FORM_ROW_TEXTINPUT_CHANGED,
     FORM_ROW_TYPE_CHANGED
 } from "../actions";
@@ -8,7 +12,7 @@ const initialState =  {
     loaded: false,
     loading: false,
     data: [],
-    criteria: [{id: 1, type: 0}]
+    criteria: []
 };
 
 function form(state = initialState, action) {
@@ -29,9 +33,10 @@ function form(state = initialState, action) {
             };
         case FORM_ADD_ROW:
             let newId = getBiggestCriteriaId(state)+1;
+            newCriteria = {id: newId, type: 0};
             return {
                 ...state,
-                criteria: [...state.criteria, { id: newId }]
+                criteria: [...state.criteria, newCriteria]
             };
         case FORM_ROW_TYPE_CHANGED:
             newCriteria = [...state.criteria]; // Clone array of criteria

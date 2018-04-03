@@ -71,6 +71,6 @@ export const getFormData = () => {
                 response => response.json(),
                 error => console.log('An error occurred.', error)
             )
-            .then(json => dispatch(endLoadForm(json)))
+            .then(json => {return [dispatch(endLoadForm(json)), dispatch(addFormRow())]})
     }
 }
