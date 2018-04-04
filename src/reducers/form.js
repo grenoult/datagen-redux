@@ -103,7 +103,6 @@ function form(state = initialState, action) {
             };
         case FORM_ROW_REMOVED:
             newCriteria = [...state.criteria].filter(function(row) {
-                console.log(row.id !== this);
                 return row.id !== this;
             }, action.id);
 

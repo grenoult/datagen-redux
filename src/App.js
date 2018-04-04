@@ -2,11 +2,10 @@ import 'babel-polyfill'
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-// import { getFormData } from './actions';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-// import Form from './components/Form';
 import FormContainer from './containers/FormContainer';
+import ResultContainer from './containers/ResultContainer';
 import { Provider } from 'react-redux';
 import datagenApp from './reducers/Datagenapp';
 import thunkMiddleware from 'redux-thunk'
@@ -28,10 +27,6 @@ const unsubscribe = store.subscribe(() =>
     console.log(store.getState())
 );
 
-// store.dispatch(getFormData())
-//     .then(() => console.log(store.getState()))
-// ;
-
 unsubscribe();
 
 class App extends Component {
@@ -48,6 +43,7 @@ class App extends Component {
                         To get started, edit <code>src/App.js</code> and save to reload.
                     </p>
                     <FormContainer/>
+                    <ResultContainer/>
                 </div>
             </Provider>
         );

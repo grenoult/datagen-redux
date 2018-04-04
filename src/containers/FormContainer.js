@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getFormData, addFormRow } from '../actions'
+import { getFormData, addFormRow, getResult } from '../actions'
 import Form from '../components/Form'
 
-class Feeds extends React.Component {
+class FormContainerComponent extends React.Component {
 
     componentDidMount() {
         this.props.getFormData();
@@ -16,6 +16,7 @@ class Feeds extends React.Component {
                 onAddRow={this.props.addFormRow}
                 criteriaList={this.props.criteriaList}
             />
+            <button onClick={this.props.getResult}>Generate</button>
         </div>);
     }
 }
@@ -27,12 +28,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     getFormData,
-    addFormRow
+    addFormRow,
+    getResult,
 };
 
 const FormContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Feeds);
+)(FormContainerComponent);
 
 export default FormContainer
