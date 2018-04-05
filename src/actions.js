@@ -12,6 +12,7 @@ import fetch from 'cross-fetch'
  export const RESULT_LOADING = 'RESULT_LOADING';
  export const RESULT_LOADED = 'RESULT_LOADED';
  export const FORM_NB_RECORDS_CHANGED = 'FORM_NB_RECORDS_CHANGED';
+ export const FORM_RESULT_TYPE_CHANGED = 'FORM_RESULT_TYPE_CHANGED';
 
 export function startLoadForm() {
     return { type: FORM_LOADING }
@@ -72,6 +73,13 @@ export const removeFormRow = function(rowId) {
 export const changeNbRecordsNumber = function(value) {
     return {
         type: FORM_NB_RECORDS_CHANGED,
+        value: value
+    }
+};
+
+export const changeResultType = function(value) {
+    return {
+        type: FORM_RESULT_TYPE_CHANGED,
         value: value
     }
 };

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getFormData, addFormRow, getResult, changeNbRecordsNumber } from '../actions'
+import { getFormData, addFormRow, getResult, changeNbRecordsNumber, changeResultType } from '../actions'
 import Form from '../components/Form'
 
 class FormContainerComponent extends React.Component {
@@ -22,6 +22,11 @@ class FormContainerComponent extends React.Component {
                 <option value="100">100</option>
                 <option value="500">500</option>
             </select>
+            <select onChange={event => this.props.changeResultType(event.target.value)}>
+                <option value="html">HTML</option>
+                <option value="csv">CSV</option>
+                <option value="sql">SQL</option>
+            </select>
             <button onClick={() => this.props.getResult(this.props.criteriaList)}>Generate</button>
         </div>);
     }
@@ -37,7 +42,8 @@ const mapDispatchToProps = {
     getFormData,
     addFormRow,
     getResult,
-    changeNbRecordsNumber
+    changeNbRecordsNumber,
+    changeResultType
 };
 
 const FormContainer = connect(

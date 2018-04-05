@@ -7,7 +7,7 @@ import {
     FORM_ROW_TEXTINPUT_CHANGED,
     FORM_ROW_TYPE_CHANGED,
     FORM_ROW_REMOVED,
-    FORM_NB_RECORDS_CHANGED
+    FORM_NB_RECORDS_CHANGED, FORM_RESULT_TYPE_CHANGED
 } from "../actions";
 
 const initialState =  {
@@ -15,7 +15,8 @@ const initialState =  {
     loading: false,
     data: [],
     criteria: [],
-    nbRecords: 10
+    nbRecords: 10,
+    resultType: 'html'
 };
 
 function form(state = initialState, action) {
@@ -132,6 +133,12 @@ function form(state = initialState, action) {
             return {
                 ...state,
                 nbRecords: action.value
+            };
+
+        case FORM_RESULT_TYPE_CHANGED:
+            return {
+                ...state,
+                resultType: action.value
             };
 
         default:
