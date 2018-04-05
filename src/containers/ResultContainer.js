@@ -1,42 +1,22 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getResult, addFormRow, startGeneratingData } from '../actions'
+import Result from '../components/Result'
 
 class ResultContainerComponent extends React.Component {
-
-    componentDidMount() {
-        if (this.props.loading && !this.props.loaded) {
-            console.log('Launch Ajax request');
-        }
-    }
-
     render() {
-        // return (<div>{JSON.stringify(this.props)}</div>)
-        if (!this.props.loading && !this.props.loaded) {
-            return null;
-        }
-
-        if (this.props.loading && !this.props.loaded) {
-            return (
-                <div>Generating...</div>
-            );
-        }
-
-        return (
-            <div>
-                {this.props.toString()}
-                <ul>
-                    <li>Loading: {this.props.loading.toString()}</li>
-                    <li>Loaded: {this.props.loaded.toString()}</li>
-                </ul>
-            </div>);
+        return <Result loading={this.props.loading}
+                loaded={this.props.loaded}
+                criteriaList={this.props.criteriaList}
+                result={this.props.result}/>
     }
 }
 
 const mapStateToProps = state => ({
     loading: state.result.loading,
     loaded: state.result.loaded,
-    criteriaList: state.form.criteria
+    criteriaList: state.form.criteria,
+    result: state.result.data
 });
 
 const mapDispatchToProps = {

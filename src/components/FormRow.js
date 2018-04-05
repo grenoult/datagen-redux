@@ -18,7 +18,7 @@ const FormRow = ({
             <option value="" disabled>Type</option>
             {formData.map(function(type, i) {
                 return (
-                    <option key={i} name={type.name} value={i}>
+                    <option key={i} value={type.name}>
                         {type.label}
                     </option>
                 )
@@ -39,12 +39,18 @@ const FormRow = ({
  */
 function Subtype(props)
 {
-    let i = props.criteria.type;
+    if (!props || !props.criteria || !props.formData) {
+        return null;
+    }
 
-    if (!props || !props.criteria || !props.formData[i] ||
-        !props.formData[i].options || !props.formData[i].options.options
-    ) {
-        return (<div/>)
+    // Find if there's options
+    let i = 0;
+    while (props.formData[i].name !== props.criteria.type) {
+        i++;
+    }
+
+    if (!props.formData[i].options || !props.formData[i].options.options) {
+        return null
     }
 
     return (

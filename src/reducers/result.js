@@ -1,11 +1,9 @@
-// import {FORM_LOADING} from "../actions";
-
-import {RESULT_LOADING} from "../actions";
+import {RESULT_LOADING, RESULT_LOADED} from "../actions";
 
 const initialState =  {
     loaded: false,
     loading: false,
-    data: [],
+    data: null,
 };
 
 function result(state = initialState, action) {
@@ -14,7 +12,15 @@ function result(state = initialState, action) {
             return {
                 ...state,
                 loaded: false,
-                loading: true
+                loading: true,
+                data: null
+            };
+        case RESULT_LOADED:
+            return {
+                ...state,
+                loaded: true,
+                loading: false,
+                data: action.value
             };
         default:
             return state;

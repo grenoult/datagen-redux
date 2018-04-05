@@ -6,14 +6,16 @@ import {
     FORM_ROW_SUBTYPE_CHANGED,
     FORM_ROW_TEXTINPUT_CHANGED,
     FORM_ROW_TYPE_CHANGED,
-    FORM_ROW_REMOVED
+    FORM_ROW_REMOVED,
+    FORM_NB_RECORDS_CHANGED
 } from "../actions";
 
 const initialState =  {
     loaded: false,
     loading: false,
     data: [],
-    criteria: []
+    criteria: [],
+    nbRecords: 10
 };
 
 function form(state = initialState, action) {
@@ -34,7 +36,13 @@ function form(state = initialState, action) {
             };
         case FORM_ADD_ROW:
             let newId = getBiggestCriteriaId(state)+1;
-            newCriteria = {id: newId, type: 0};
+            let type = state.data[0].name;
+            newCriteria = {id: newId, type: type};
+
+            if (state.data[0].options && state.data[0].options.options) {
+                newCriteria.subtype = Object.keys(state.data[0].options.options)[0];
+            }
+
             return {
                 ...state,
                 criteria: [...state.criteria, newCriteria]
@@ -48,9 +56,18 @@ function form(state = initialState, action) {
             newCriteriaRow.type = action.value;
             newCriteria[i] = newCriteriaRow;
 
-            // Remove subtype, if any
+            // Remove or add subtype, if any
             if (newCriteriaRow.subtype) {
                 delete newCriteriaRow.subtype;
+            }
+
+            let i = 0;
+            while (state.data[i] && state.data[i].name !== newCriteriaRow.type) {
+                i++;
+            }
+
+            if (state.data[i] && state.data[i].options && state.data[i].options.options) {
+                newCriteriaRow.subtype = Object.keys(state.data[i].options.options)[0];
             }
 
             // Remove textinput, if any
@@ -109,6 +126,12 @@ function form(state = initialState, action) {
             return {
                 ...state,
                 criteria: newCriteria
+            };
+
+        case FORM_NB_RECORDS_CHANGED:
+            return {
+                ...state,
+                nbRecords: action.value
             };
 
         default:

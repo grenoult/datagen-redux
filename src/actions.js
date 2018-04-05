@@ -11,6 +11,7 @@ import fetch from 'cross-fetch'
  export const FORM_ROW_REMOVED = 'FORM_ROW_REMOVED';
  export const RESULT_LOADING = 'RESULT_LOADING';
  export const RESULT_LOADED = 'RESULT_LOADED';
+ export const FORM_NB_RECORDS_CHANGED = 'FORM_NB_RECORDS_CHANGED';
 
 export function startLoadForm() {
     return { type: FORM_LOADING }
@@ -68,15 +69,23 @@ export const removeFormRow = function(rowId) {
     }
 };
 
+export const changeNbRecordsNumber = function(value) {
+    return {
+        type: FORM_NB_RECORDS_CHANGED,
+        value: value
+    }
+};
+
 export const startGeneratingData = function() {
     return {
         type: RESULT_LOADING
     }
 };
 
-export const endGeneratingData = function() {
+export const endGeneratingData = function(value) {
     return {
-        type: RESULT_LOADED
+        type: RESULT_LOADED,
+        value: value
     }
 };
 
@@ -94,12 +103,12 @@ export const getFormData = () => {
     }
 };
 
-export const getResult = () => {
+export const getResult = (criteriaList) => {
     return (dispatch) => {
         dispatch(startGeneratingData());
 
         let data = {
-            query: "{\"queryFields\":[{\"name\":\"id\",\"typeId\":\"1\",\"type\":\"integer\",\"subtype\":\"increment\"},{\"name\":\"firstname\",\"typeId\":\"5\",\"type\":\"firstname\",\"subtype\":\"both\"},{\"name\":\"lastname\",\"typeId\":\"6\",\"type\":\"surname\",\"subtype\":\"\"},{\"name\":\"stnum\",\"typeId\":\"11\",\"type\":\"street Number\",\"subtype\":\"\"},{\"name\":\"stname\",\"typeId\":\"10\",\"type\":\"street\",\"subtype\":\"\"},{\"name\":\"state\",\"typeId\":\"9\",\"type\":\"state\",\"subtype\":\"\"},{\"name\":\"zip\",\"typeId\":\"8\",\"type\":\"postcode\",\"subtype\":\"\"},{\"name\":\"city\",\"typeId\":\"7\",\"type\":\"city\",\"subtype\":\"\"},{\"name\":\"phone\",\"typeId\":\"4\",\"type\":\"phone\",\"subtype\":\"us\"},{\"name\":\"startdate\",\"typeId\":\"3\",\"type\":\"date\",\"subtype\":\"past\"},{\"name\":\"creditcard\",\"typeId\":\"2\",\"type\":\"regex\",\"subtype\":\"^4[0-9]12(?:[0-9]3)?$\"}],\"records\":\"10\"}"
+            query: JSON.stringify({"queryFields": criteriaList, "records":"10"})
         };
 
         return fetch('http://randomdata.info:8081/api/generate', {
