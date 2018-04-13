@@ -13,6 +13,7 @@ import fetch from 'cross-fetch'
  export const RESULT_LOADED = 'RESULT_LOADED';
  export const FORM_NB_RECORDS_CHANGED = 'FORM_NB_RECORDS_CHANGED';
  export const FORM_RESULT_TYPE_CHANGED = 'FORM_RESULT_TYPE_CHANGED';
+ export const FORM_LOAD_SAMPLE = 'FORM_LOAD_SAMPLE';
 
 export function startLoadForm() {
     return { type: FORM_LOADING }
@@ -94,6 +95,12 @@ export const endGeneratingData = function(value) {
     return {
         type: RESULT_LOADED,
         value: value
+    }
+};
+
+export const loadSample = function (value) {
+    return {
+        type: FORM_LOAD_SAMPLE
     }
 };
 

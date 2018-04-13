@@ -5,10 +5,13 @@ import Result from '../components/Result'
 
 class ResultContainerComponent extends React.Component {
     render() {
-        return <Result loading={this.props.loading}
-                loaded={this.props.loaded}
-                criteriaList={this.props.criteriaList}
-                result={this.props.result}/>
+        return <Result
+            loading={this.props.loading}
+            loaded={this.props.loaded}
+            criteriaList={this.props.criteriaList}
+            result={this.props.result}
+            resultType={this.props.resultType}
+        />
     }
 }
 
@@ -16,7 +19,8 @@ const mapStateToProps = state => ({
     loading: state.result.loading,
     loaded: state.result.loaded,
     criteriaList: state.form.criteria,
-    result: state.result.data
+    result: state.result.data,
+    resultType: state.form.resultType
 });
 
 const mapDispatchToProps = {

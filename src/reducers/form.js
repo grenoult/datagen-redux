@@ -7,7 +7,9 @@ import {
     FORM_ROW_TEXTINPUT_CHANGED,
     FORM_ROW_TYPE_CHANGED,
     FORM_ROW_REMOVED,
-    FORM_NB_RECORDS_CHANGED, FORM_RESULT_TYPE_CHANGED
+    FORM_NB_RECORDS_CHANGED,
+    FORM_RESULT_TYPE_CHANGED,
+    FORM_LOAD_SAMPLE
 } from "../actions";
 
 const initialState =  {
@@ -139,6 +141,24 @@ function form(state = initialState, action) {
             return {
                 ...state,
                 resultType: action.value
+            };
+
+        case FORM_LOAD_SAMPLE:
+            return {
+                ...state,
+                criteria: [
+                    {"id": 1,"name":"id","type":"integer","subtype":"increment"},
+                    {"id": 2,"name":"firstname","type":"firstname","subtype":"both"},
+                    {"id": 3,"name":"lastname","type":"surname","subtype":""},
+                    {"id": 4,"name":"stnum","type":"street Number","subtype":""},
+                    {"id": 5,"name":"stname","type":"street","subtype":""},
+                    {"id": 6,"name":"state","type":"state","subtype":""},
+                    {"id": 7,"name":"zip","type":"postcode","subtype":""},
+                    {"id": 8,"name":"city","type":"city","subtype":""},
+                    {"id": 9,"name":"phone","type":"phone","subtype":"us"},
+                    {"id": 10,"name":"startdate","type":"date","subtype":"past"},
+                    {"id": 11,"name":"creditcard","type":"regex","subtype":"^4[0-9]12(?:[0-9]3)?$"}
+                    ]
             };
 
         default:
