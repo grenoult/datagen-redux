@@ -12,9 +12,10 @@ const FormRow = ({
     criteria,
     criteriaLength
     }) => (
-    <div>
-        <input id={id} type="text" name="fieldName" onChange={event => changeRowName(id, event.target.value)}/>
-        <select onChange={event => changeRowType(id, event.target.value)}>
+    <div id={'row-'+id} class="form-row">
+        <input type="text" name="fieldName" onChange={event => changeRowName(id, event.target.value)} value={criteria.name}/>
+        {criteria.subtype}
+        <select onChange={event => changeRowType(id, event.target.value)} value={criteria.type}>
             <option value="" disabled>Type</option>
             {formData.map(function(type, i) {
                 return (
@@ -54,7 +55,7 @@ function Subtype(props)
     }
 
     return (
-        <select onChange={event => props.changeRowSubType(props.rowId, event.target.value)}>
+        <select onChange={event => props.changeRowSubType(props.rowId, event.target.value)} value={props.criteria.subtype}>
             <option value="" disabled>{props.formData[i].options.name}</option>
             {
             // Convert object to array first, then use map to loop through it

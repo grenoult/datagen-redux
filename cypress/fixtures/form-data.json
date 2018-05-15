@@ -1,0 +1,13 @@
+[
+  {"id": 1,"name":"id","type":"integer","subtype":"increment"},
+  {"id": 2,"name":"firstname","type":"firstname","subtype":"both"},
+  {"id": 3,"name":"lastname","type":"surname","subtype":""},
+  {"id": 4,"name":"stnum","type":"street Number","subtype":""},
+  {"id": 5,"name":"stname","type":"street","subtype":""},
+  {"id": 6,"name":"state","type":"state","subtype":""},
+  {"id": 7,"name":"zip","type":"postcode","subtype":""},
+  {"id": 8,"name":"city","type":"city","subtype":""},
+  {"id": 9,"name":"phone","type":"phone","subtype":"us"},
+  {"id": 10,"name":"startdate","type":"date","subtype":"past"},
+  {"id": 11,"name":"creditcard","type":"regex","subtype":"^4[0-9]12(?:[0-9]3)?$"}
+]

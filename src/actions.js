@@ -110,11 +110,17 @@ export const getFormData = () => {
         dispatch(startLoadForm());
 
         return fetch('http://randomdata.info:8081/api/fields')
-            .then(
-                response => response.json(),
-                error => console.log('An error occurred.', error)
-            )
+            // .then(res => {
+            //     console.log(res);
+                // response => response.json(),
+                // error => console.log('An error occurred.', error)
+            // })
+            .then(res => {})
             .then(json => {return [dispatch(endLoadForm(json)), dispatch(addFormRow())]})
+            .catch(err => {
+                console.error(err);
+                return [dispatch(endLoadForm())]
+            });
     }
 };
 

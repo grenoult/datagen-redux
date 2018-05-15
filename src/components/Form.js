@@ -26,7 +26,7 @@ function Formcontent(props) {
                     <FormRowContainer key={criteria.id} id={criteria.id} criteria={criteria}/>
                 ))
             }
-            <button onClick={() => props.onAddRow() }>Add</button>
+            <button id='add-row' onClick={() => props.onAddRow() }>Add</button>
         </div>
     );
 }
