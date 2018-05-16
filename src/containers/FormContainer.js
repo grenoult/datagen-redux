@@ -27,7 +27,7 @@ class FormContainerComponent extends React.Component {
                 <option value="csv">CSV</option>
                 <option value="sql">SQL</option>
             </select>
-            <button onClick={() => this.props.getResult(this.props.criteriaList)}>Generate</button>
+            <button id="generate-btn" onClick={() => this.props.getResult(this.props.criteriaList)}>Generate</button>
             <button onClick={this.props.loadSample}>Load Sample Data</button>
         </div>);
     }

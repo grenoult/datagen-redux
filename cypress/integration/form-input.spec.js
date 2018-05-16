@@ -18,15 +18,77 @@ describe('Form Input', () => {
     });
 
     it.only('Fill in sample data', () => {
-        cy.fixture('form-data')
+        const fixtureName = 'form-data';
+        cy.fillinFixture(fixtureName);
+
+        cy.get('#generate-btn').click();
+
+        cy.checkFilledinFixtureHeaders(fixtureName);
+
+        cy.fixture(fixtureName)
             .then(formdata => {
                 formdata.forEach(function (row, i) {
-                    cy.get('body').find('.form-row:last input:first').type(row.name);
-                    if (i < formdata.length - 1) {
-                        cy.get('#add-row').click();
-                    }
-                })
-                cy.get('body').find('.form-row').should('have.length', formdata.length);
+                    let type = row.type;
+                    let subtype = row.subtype;
+
+                    // cy.get('tbody')
+                    //     .find('td:eq('+(i+1)+')')
+                    //     .should(($td) => {
+                    //         let tds = $td.map((i, el) => {
+                    //             return Cypress.$(el).text();
+                    //         });
+                    //         console.log(tds);
+                    //     });
+
+                    // switch (type) {
+                    //     case "integer": {
+                    //
+                    //         break;
+                    //     }
+                    //     case "firstname": {
+                    //
+                    //         break;
+                    //     }
+                    //     case "surname": {
+                    //
+                    //         break;
+                    //     }
+                    //     case "street Number": {
+                    //
+                    //         break;
+                    //     }
+                    //     case "street": {
+                    //
+                    //         break;
+                    //     }
+                    //     case "state": {
+                    //
+                    //         break;
+                    //     }
+                    //     case "postcode": {
+                    //
+                    //         break;
+                    //     }
+                    //     case "city": {
+                    //
+                    //         break;
+                    //     }
+                    //     case "phone": {
+                    //
+                    //         break;
+                    //     }
+                    //     case "date": {
+                    //
+                    //         break;
+                    //     }
+                    //     case "regex": {
+                    //
+                    //         break;
+                    //     }
+                    // }
+                    // cy.get('tbody > tr > :nth-child('+(i+1)+')').contains(row.name);
+                });
+                // cy.get('thead > tr > td').should('have.length', formdata.length)
             });
     })
 })

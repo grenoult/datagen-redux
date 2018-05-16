@@ -110,17 +110,19 @@ export const getFormData = () => {
         dispatch(startLoadForm());
 
         return fetch('http://randomdata.info:8081/api/fields')
-            // .then(res => {
-            //     console.log(res);
-                // response => response.json(),
-                // error => console.log('An error occurred.', error)
-            // })
-            .then(res => {})
-            .then(json => {return [dispatch(endLoadForm(json)), dispatch(addFormRow())]})
-            .catch(err => {
-                console.error(err);
-                return [dispatch(endLoadForm())]
-            });
+            .then(
+                response => response.json(),
+                (error) => {
+                    console.error(error);
+                }
+            )
+            .then(json => {
+                if (Object.keys(json).length == 0) {
+                    // TODO meh looks not good here... Refactor
+                    return [dispatch(endLoadForm())]
+                }
+                return [dispatch(endLoadForm(json)), dispatch(addFormRow())]
+            })
     }
 };
 

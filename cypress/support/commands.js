@@ -30,4 +30,41 @@ Cypress.Commands.add('loadPage', () => {
         .as('loadFields');
     cy.visit('/');
     cy.wait('@loadFields');
-})
+});
+
+
+/**
+ * Fill in data. Parameter is a fixture name.
+ */
+Cypress.Commands.add('fillinFixture', (fixtureName) => {
+    cy.fixture(fixtureName)
+        .then(formdata => {
+            formdata.forEach(function (row, i) {
+                cy.get('.form-row:last input:first').type(row.name);
+                cy.get('.form-row:last select:first').select(row.type);
+
+                if (row.subtype.length > 0) {
+                    if (row.textInput) {
+                        cy.get('.form-row:last input:last').type(row.subtype);
+                    } else {
+                        cy.get('.form-row:last select:last').select(row.subtype);
+                    }
+
+                }
+                if (i < formdata.length - 1) {
+                    cy.get('#add-row').click();
+                }
+            });
+            cy.get('body').find('.form-row').should('have.length', formdata.length);
+        });
+});
+
+Cypress.Commands.add('checkFilledinFixtureHeaders', (fixtureName) => {
+    cy.fixture(fixtureName)
+        .then(formdata => {
+            formdata.forEach(function (row, i) {
+                cy.get('thead > tr > :nth-child('+(i+1)+')').contains(row.name);
+            });
+            cy.get('thead > tr > td').should('have.length', formdata.length)
+        });
+});
