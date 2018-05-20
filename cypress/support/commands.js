@@ -40,14 +40,14 @@ Cypress.Commands.add('fillinFixture', (fixtureName) => {
     cy.fixture(fixtureName)
         .then(formdata => {
             formdata.forEach(function (row, i) {
-                cy.get('.form-row:last input:first').type(row.name);
-                cy.get('.form-row:last select:first').select(row.type);
+                cy.get('.form-row:last input[name="fieldName"]').type(row.name);
+                cy.get('.form-row:last select[name="fieldType"]').select(row.type);
 
                 if (row.subtype.length > 0) {
-                    if (row.textInput) {
-                        cy.get('.form-row:last input:last').type(row.subtype);
+                    if (row.textinput) {
+                        cy.get('.form-row:last input[name="fieldSubtype"]').type(row.subtype);
                     } else {
-                        cy.get('.form-row:last select:last').select(row.subtype);
+                        cy.get('.form-row:last select[name="fieldSubtype"]').select(row.subtype);
                     }
 
                 }

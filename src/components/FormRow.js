@@ -13,8 +13,10 @@ const FormRow = ({
     criteriaLength
     }) => (
     <div id={'row-'+id} className="form-row">
-        <input type="text" name="fieldName" onChange={event => changeRowName(id, event.target.value)} value={criteria.name}/>
-        <select onChange={event => changeRowType(id, event.target.value)}>
+        <input type="text" name="fieldName"
+               onChange={event => changeRowName(id, event.target.value)}
+               value={criteria.name}/>
+        <select onChange={event => changeRowType(id, event.target.value)} name="fieldType">
             <option value="" disabled>Type</option>
             {formData.map(function(type, i) {
                 return (
@@ -54,7 +56,9 @@ function Subtype(props)
     }
 
     return (
-        <select onChange={event => props.changeRowSubType(props.rowId, event.target.value)} value={props.criteria.subtype}>
+        <select onChange={event => props.changeRowSubType(props.rowId, event.target.value)}
+                value={props.criteria.subtype}
+                name="fieldSubtype">
             <option value="" disabled>{props.formData[i].options.name}</option>
             {
             // Convert object to array first, then use map to loop through it
@@ -88,6 +92,7 @@ function Textinput(props)
         <input type='text'
                onChange={event => props.changeRowTextInput(props.rowId, event.target.value)}
                placeholder={props.formData[i].textinputplaceholder}
+               name="fieldSubtype"
         />
     )
 }
