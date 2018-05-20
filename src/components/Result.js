@@ -92,7 +92,7 @@ function Csvresult(props) {
 }
 
 Result.propTypes = {
-    isLoading: PropTypes.bool.isRequired,
+    loading: PropTypes.bool.isRequired,
     criteriaList: PropTypes.array.isRequired
 };
 

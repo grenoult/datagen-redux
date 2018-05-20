@@ -4,19 +4,10 @@ import FormRow from '../components/FormRow'
 import {changeRowType, changeRowSubType, changeRowTextInput, changeRowName, removeFormRow} from '../actions'
 
 class FormRowContainer extends React.Component {
-    constructor(props) {
-        super(props);
-
-        // As a controlled component, local state = global state so we can keep only one source of truth.
-        this.state = {
-            criteria: props.criteria
-        };
-    }
-
     render() {
         return (
         <div>
-            { this.props.criteria.name }
+            { this.props.criteria.type }
             <FormRow
                 formData={this.props.formData}
                 changeRowType={this.props.changeRowType}
@@ -24,7 +15,7 @@ class FormRowContainer extends React.Component {
                 changeRowTextInput={this.props.changeRowTextInput}
                 changeRowName={this.props.changeRowName}
                 removeFormRow={this.props.removeFormRow}
-                criteria={this.state.criteria}
+                criteria={this.props.criteria}
                 criteriaLength={this.props.criteriaLength}
                 id={this.props.id}
                 type={this.props.type}

@@ -12,14 +12,13 @@ const FormRow = ({
     criteria,
     criteriaLength
     }) => (
-    <div id={'row-'+id} class="form-row">
+    <div id={'row-'+id} className="form-row">
         <input type="text" name="fieldName" onChange={event => changeRowName(id, event.target.value)} value={criteria.name}/>
-        {criteria.subtype}
-        <select onChange={event => changeRowType(id, event.target.value)} value={criteria.type}>
+        <select onChange={event => changeRowType(id, event.target.value)}>
             <option value="" disabled>Type</option>
             {formData.map(function(type, i) {
                 return (
-                    <option key={i} value={type.name}>
+                    <option key={i} value={type.name} selected={criteria.type === type.name ? 'selected' : ''}>
                         {type.label}
                     </option>
                 )

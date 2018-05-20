@@ -117,7 +117,7 @@ export const getFormData = () => {
                 }
             )
             .then(json => {
-                if (Object.keys(json).length == 0) {
+                if (Object.keys(json).length === 0) {
                     // TODO meh looks not good here... Refactor
                     return [dispatch(endLoadForm())]
                 }
