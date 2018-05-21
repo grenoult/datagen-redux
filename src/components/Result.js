@@ -30,10 +30,15 @@ function Resultcontent(props) {
         return <Csvresult result={props.result}/>
     }
 
+    if (props.resultType === 'sql') {
+        return <Sqlresult result={props.result}/>
+    }
+
     return null;
 }
 
 /**
+ *  Creates HTML output.
  *
  * @param props
  * @returns {*}
@@ -67,6 +72,7 @@ function Htmlresult(props) {
 }
 
 /**
+ *  Creates CSV output.
  *
  * @param props
  * @returns {*}
@@ -89,6 +95,41 @@ function Csvresult(props) {
     }
 
     return <pre>{csv}</pre>;
+}
+
+/**
+ *  Creates SQL output.
+ *
+ * @param props
+ * @constructor
+ */
+function Sqlresult(props) {
+    let sql = '';
+    let headerSql = 'INSERT INTO table_name(';
+    let i = 0;
+
+    for (let record in props.result) {
+        if (props.result.hasOwnProperty(record)) {
+            for (let j in props.result[record]) {
+                if (props.result[record].hasOwnProperty(j)) {
+                    if (props.result[record][j]) {
+                        // Header
+                        if (i === 0) {
+                            headerSql = headerSql + j + ', ';
+                        }
+                        // Column
+                        sql = sql + '"' + props.result[record][j] + '", ';
+                    }
+                }
+            }
+        }
+        sql = sql.slice(0, -2) + '),\n(';
+        i++;
+    }
+
+    sql = headerSql.slice(0, -2) + ') VALUES \n(' + sql.slice(0, -3) + ';';
+    sql = sql.replace(/^\s+|\s+$/g, '');
+    return <pre>{sql}</pre>;
 }
 
 Result.propTypes = {
