@@ -126,12 +126,12 @@ export const getFormData = () => {
     }
 };
 
-export const getResult = (criteriaList) => {
+export const getResult = (criteriaList, nbRecords) => {
     return (dispatch) => {
         dispatch(startGeneratingData());
 
         let data = {
-            query: JSON.stringify({"queryFields": criteriaList, "records":"10"})
+            query: JSON.stringify({"queryFields": criteriaList, "records": nbRecords})
         };
 
         return fetch('http://randomdata.info:8081/api/generate', {

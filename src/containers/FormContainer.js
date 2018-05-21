@@ -16,18 +16,18 @@ class FormContainerComponent extends React.Component {
                 onAddRow={this.props.addFormRow}
                 criteriaList={this.props.criteriaList}
             />
-            <select onChange={event => this.props.changeNbRecordsNumber(event.target.value)}>
+            <select id="formResultNumber" onChange={event => this.props.changeNbRecordsNumber(event.target.value)}>
                 <option value="10">10</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
                 <option value="500">500</option>
             </select>
-            <select onChange={event => this.props.changeResultType(event.target.value)}>
+            <select id="formResultType" onChange={event => this.props.changeResultType(event.target.value)}>
                 <option value="html">HTML</option>
                 <option value="csv">CSV</option>
                 <option value="sql">SQL</option>
             </select>
-            <button id="generate-btn" onClick={() => this.props.getResult(this.props.criteriaList)}>Generate</button>
+            <button id="generate-btn" onClick={() => this.props.getResult(this.props.criteriaList, this.props.nbRecords)}>Generate</button>
             <button onClick={this.props.loadSample}>Load Sample Data</button>
         </div>);
     }

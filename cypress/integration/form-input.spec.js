@@ -1,4 +1,6 @@
 describe('Form Input', () => {
+    const fixtureName = 'form-data';
+
     beforeEach(() => {
         cy.loadPage()
     });
@@ -17,12 +19,23 @@ describe('Form Input', () => {
         }
     });
 
-    it.only('Fill in sample data', () => {
-        const fixtureName = 'form-data';
+    it('Fill in sample data', () => {
         cy.fillinFixture(fixtureName);
 
         cy.get('#generate-btn').click();
 
         cy.checkFilledinFixtureHeaders(fixtureName);
-    })
+    });
+
+    it.only('Check number of records returns', () => {
+        cy.fillinFixture(fixtureName);
+
+        const numbers = [10, 50, 100, 500];
+
+        numbers.forEach(function (number) {
+            cy.get('#formResultNumber').select(number.toString());
+            cy.get('#generate-btn').click();
+            cy.get('tbody tr').should('have.length', number);
+        });
+    });
 })
