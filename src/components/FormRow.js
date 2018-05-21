@@ -51,6 +51,16 @@ function Subtype(props)
         i++;
     }
 
+    if (props.formData[i].textinput) {
+        return (
+            <input type='text'
+                   onChange={event => props.changeRowSubType(props.rowId, event.target.value)}
+                   value={props.criteria.subtype}
+                   placeholder={props.formData[i].textinputplaceholder}
+                   name="fieldSubtype"/>
+        );
+    }
+
     if (!props.formData[i].options || !props.formData[i].options.options) {
         return null
     }
