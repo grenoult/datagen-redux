@@ -7,7 +7,6 @@ class FormRowContainer extends React.Component {
     render() {
         return (
         <div>
-            { this.props.criteria.type }
             <FormRow
                 formData={this.props.formData}
                 changeRowType={this.props.changeRowType}

@@ -10,25 +10,45 @@ class FormContainerComponent extends React.Component {
     }
 
     render() {
-        return (<div>
-            <Form
-                isLoading={this.props.loading}
-                onAddRow={this.props.addFormRow}
-                criteriaList={this.props.criteriaList}
-            />
-            <select id="formResultNumber" onChange={event => this.props.changeNbRecordsNumber(event.target.value)}>
-                <option value="10">10</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-                <option value="500">500</option>
-            </select>
-            <select id="formResultType" onChange={event => this.props.changeResultType(event.target.value)}>
-                <option value="html">HTML</option>
-                <option value="csv">CSV</option>
-                <option value="sql">SQL</option>
-            </select>
-            <button id="generate-btn" onClick={() => this.props.getResult(this.props.criteriaList, this.props.nbRecords)}>Generate</button>
-            <button onClick={this.props.loadSample}>Load Sample Data</button>
+        return (<div className="container">
+            <div className="row justify-content-md-center">
+                <div className="col-md-10">
+                    <Form
+                        isLoading={this.props.loading}
+                        onAddRow={this.props.addFormRow}
+                        criteriaList={this.props.criteriaList}
+                    />
+                    <div className="form-inline justify-content-md-center">
+                        <div className="col-auto">
+                            <select id="formResultNumber"
+                                    onChange={event => this.props.changeNbRecordsNumber(event.target.value)}
+                                    className='form-control mb-2 mr-sm-2'>
+                                <option value="10">10</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="500">500</option>
+                            </select>
+                        </div>
+                        <div className="col-auto">
+                            <select id="formResultType"
+                                    onChange={event => this.props.changeResultType(event.target.value)}
+                                    className='form-control mb-2 mr-sm-2'>
+                                <option value="html">HTML</option>
+                                <option value="csv">CSV</option>
+                                <option value="sql">SQL</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="generate-btn"
+                            onClick={() => this.props.getResult(this.props.criteriaList, this.props.nbRecords)}
+                            className='form-control mb-2 mr-sm-2 btn btn-primary'>
+                        Generate
+                    </button>
+                    <button onClick={this.props.loadSample}
+                            className='form-control mb-2 mr-sm-2 btn btn-default'>
+                        Load Sample Data</button>
+                </div>
+            </div>
         </div>);
     }
 }

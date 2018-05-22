@@ -12,23 +12,34 @@ const FormRow = ({
     criteria,
     criteriaLength
     }) => (
-    <div id={'row-'+id} className="form-row">
-        <input type="text" name="fieldName"
-               onChange={event => changeRowName(id, event.target.value)}
-               value={criteria.name}/>
-        <select onChange={event => changeRowType(id, event.target.value)} name="fieldType">
-            <option value="" disabled>Type</option>
-            {formData.map(function(type, i) {
-                return (
-                    <option key={i} value={type.name} selected={criteria.type === type.name ? 'selected' : ''}>
-                        {type.label}
-                    </option>
-                )
-            })}
-        </select>
-        <Subtype rowId={id} criteria={criteria} formData={formData} changeRowSubType={changeRowSubType}/>
-        <Textinput rowId={id} criteria={criteria} formData={formData} changeRowTextInput={changeRowTextInput}/>
-        <Removebutton rowId={id} criteriaLength={criteriaLength} removeFormRow={removeFormRow}/>
+    <div id={'row-'+id} className="justify-content-md-center">
+        <div className='form-inline'>
+            <div className="col-md-10">
+                <input type="text" name="fieldName"
+                       onChange={event => changeRowName(id, event.target.value)}
+                       className='form-control mb-2 mr-sm-2'
+                       placeholder='Type field name'
+                       value={criteria.name}/>
+                <select onChange={event => changeRowType(id, event.target.value)}
+                        className='form-control mb-2 mr-sm-2'
+                        name="fieldType">
+                    <option value="" disabled>Type</option>
+                    {formData.map(function(type, i) {
+                        return (
+                            <option key={i} value={type.name} selected={criteria.type === type.name ? 'selected' : ''}>
+                                {type.label}
+                            </option>
+                        )
+                    })}
+                </select>
+                <Subtype rowId={id} criteria={criteria} formData={formData} changeRowSubType={changeRowSubType}/>
+            </div>
+            <div className='col-md-2'>
+                <div className="float-right">
+                    <Removebutton rowId={id} criteriaLength={criteriaLength} removeFormRow={removeFormRow}/>
+                </div>
+            </div>
+        </div>
     </div>
 );
 
@@ -57,7 +68,8 @@ function Subtype(props)
                    onChange={event => props.changeRowSubType(props.rowId, event.target.value)}
                    value={props.criteria.subtype}
                    placeholder={props.formData[i].textinputplaceholder}
-                   name="fieldSubtype"/>
+                   name="fieldSubtype"
+                   className='form-control mb-2 mr-sm-2'/>
         );
     }
 
@@ -68,7 +80,8 @@ function Subtype(props)
     return (
         <select onChange={event => props.changeRowSubType(props.rowId, event.target.value)}
                 value={props.criteria.subtype}
-                name="fieldSubtype">
+                name="fieldSubtype"
+                className='form-control mb-2 mr-sm-2'>
             <option value="" disabled>{props.formData[i].options.name}</option>
             {
             // Convert object to array first, then use map to loop through it
@@ -84,30 +97,6 @@ function Subtype(props)
 }
 
 /**
- * Shows type text input, if any
- *
- * @param props
- * @returns {*}
- * @constructor
- */
-function Textinput(props)
-{
-    let i = props.criteria.type;
-
-    if (!props || !props.criteria || !props.formData[i] || !props.formData[i].textinput) {
-        return null
-    }
-
-    return (
-        <input type='text'
-               onChange={event => props.changeRowTextInput(props.rowId, event.target.value)}
-               placeholder={props.formData[i].textinputplaceholder}
-               name="fieldSubtype"
-        />
-    )
-}
-
-/**
  * Shows remove button
  *
  * @param props
@@ -116,12 +105,8 @@ function Textinput(props)
  */
 function Removebutton(props)
 {
-    if (props.criteriaLength <= 1) {
-        return null
-    }
-
     return (
-        <button onClick={() => props.removeFormRow(props.rowId)}>Remove {props.criteriaLength} </button>
+        <button disabled={props.criteriaLength <= 1} className='form-control mb-2 mr-sm-2' onClick={() => props.removeFormRow(props.rowId)}>Remove</button>
     )
 }
 
