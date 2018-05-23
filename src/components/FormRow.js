@@ -12,8 +12,8 @@ const FormRow = ({
     criteria,
     criteriaLength
     }) => (
-    <div id={'row-'+id} className="justify-content-md-center">
-        <div className='form-inline'>
+    <div id={'row-'+id}>
+        <div className='form-inline form-row'>
             <div className="col-md-10">
                 <input type="text" name="fieldName"
                        onChange={event => changeRowName(id, event.target.value)}
@@ -106,7 +106,7 @@ function Subtype(props)
 function Removebutton(props)
 {
     return (
-        <button disabled={props.criteriaLength <= 1} className='form-control mb-2 mr-sm-2' onClick={() => props.removeFormRow(props.rowId)}>Remove</button>
+        <button disabled={props.criteriaLength <= 1} className='form-control mb-2 mr-sm-2' onClick={() => props.removeFormRow(props.rowId)}>&times;</button>
     )
 }
 

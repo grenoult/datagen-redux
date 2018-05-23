@@ -34,7 +34,8 @@ class App extends Component {
         // let rows = [1,2,3];
         return (
             <Provider store={store}>
-                <div className="App">
+                <div className="App container">
+                    <h1>Random Data</h1>
                     <FormContainer/>
                     <ResultContainer/>
                 </div>

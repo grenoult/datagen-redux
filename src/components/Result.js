@@ -47,12 +47,12 @@ function Resultcontent(props) {
 function Htmlresult(props) {
     let headers = Object.keys(props.result[0]);
     return (
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     {
                         headers.map(title =>
-                            <td>{title}</td>
+                            <th>{title}</th>
                         )}
                 </tr>
             </thead>

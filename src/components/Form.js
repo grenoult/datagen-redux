@@ -26,8 +26,8 @@ function Formcontent(props) {
                     <FormRowContainer key={criteria.id} id={criteria.id} criteria={criteria}/>
                 ))
             }
-            <div className='form-inline justify-content-md-center'>
-                <button id='add-row' onClick={() => props.onAddRow() } className='form-control mb-2 mr-sm-2'>Add</button>
+            <div className='form-inline justify-content-md-end'>
+                <button id='add-row' onClick={() => props.onAddRow() } className='form-control mb-2 mr-sm-2'>+</button>
             </div>
         </div>
     );

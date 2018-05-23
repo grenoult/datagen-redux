@@ -10,9 +10,9 @@ class FormContainerComponent extends React.Component {
     }
 
     render() {
-        return (<div className="container">
-            <div className="row justify-content-md-center">
-                <div className="col-md-10">
+        return (<div>
+            <div className="row">
+                <div className="col-md-10 col-xs-12">
                     <Form
                         isLoading={this.props.loading}
                         onAddRow={this.props.addFormRow}
@@ -45,7 +45,7 @@ class FormContainerComponent extends React.Component {
                         Generate
                     </button>
                     <button onClick={this.props.loadSample}
-                            className='form-control mb-2 mr-sm-2 btn btn-default'>
+                            className='form-control mb-2 mr-sm-2 btn btn-light'>
                         Load Sample Data</button>
                 </div>
             </div>
