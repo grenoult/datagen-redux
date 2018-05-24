@@ -22,7 +22,7 @@ const initialState =  {
 };
 
 function form(state = initialState, action) {
-    let newCriteria, i, newCriteriaRow;
+    let newCriteria, newCriteriaRow;
     switch (action.type) {
         case FORM_LOADING:
             return {
@@ -52,19 +52,18 @@ function form(state = initialState, action) {
             };
         case FORM_ROW_TYPE_CHANGED:
             newCriteria = [...state.criteria]; // Clone array of criteria
-            i = newCriteria.findIndex(newCriteriaRow => newCriteriaRow.id === action.id); // get array index
+            let i = newCriteria.findIndex(newCriteriaRow => newCriteriaRow.id === action.id); // get array index
             newCriteriaRow = Object.assign({}, state.criteria[i]); // Clone criteria object
 
             // Update values
             newCriteriaRow.type = action.value;
-            newCriteria[i] = newCriteriaRow;
 
             // Remove or add subtype, if any
             if (newCriteriaRow.subtype) {
                 delete newCriteriaRow.subtype;
             }
 
-            let i = 0;
+            i = 0;
             while (state.data[i] && state.data[i].name !== newCriteriaRow.type) {
                 i++;
             }

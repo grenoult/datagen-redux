@@ -5,6 +5,11 @@ import {changeRowType, changeRowSubType, changeRowTextInput, changeRowName, remo
 
 class FormRowContainer extends React.Component {
     render() {
+
+        if (!this.props.criteria || !this.props.criteria.name) {
+            this.props.criteria.name = '';
+        }
+
         return (
         <div>
             <FormRow

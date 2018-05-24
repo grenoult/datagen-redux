@@ -15,18 +15,21 @@ const FormRow = ({
     <div id={'row-'+id}>
         <div className='form-inline form-row'>
             <div className="col-md-10">
-                <input type="text" name="fieldName"
+                <input type="text"
+                       name="fieldName"
                        onChange={event => changeRowName(id, event.target.value)}
                        className='form-control mb-2 mr-sm-2'
                        placeholder='Type field name'
-                       value={criteria.name}/>
+                       value={criteria.name}
+                       required/>
                 <select onChange={event => changeRowType(id, event.target.value)}
                         className='form-control mb-2 mr-sm-2'
-                        name="fieldType">
+                        name="fieldType"
+                        value={criteria.type}>
                     <option value="" disabled>Type</option>
                     {formData.map(function(type, i) {
                         return (
-                            <option key={i} value={type.name} selected={criteria.type === type.name ? 'selected' : ''}>
+                            <option key={i} value={type.name}>
                                 {type.label}
                             </option>
                         )

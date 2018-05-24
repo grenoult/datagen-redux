@@ -47,22 +47,22 @@ function Resultcontent(props) {
 function Htmlresult(props) {
     let headers = Object.keys(props.result[0]);
     return (
-        <table class="table">
+        <table className="table">
             <thead>
                 <tr>
                     {
-                        headers.map(title =>
-                            <th>{title}</th>
+                        headers.map((title,i) =>
+                            <th key={i}>{title}</th>
                         )}
                 </tr>
             </thead>
             <tbody>
             {
-                props.result.map(row =>
-                    <tr>
+                props.result.map((row, j) =>
+                    <tr key={j}>
                         {
                             Object.keys(row).map(i =>
-                                <td>{row[i]}</td>
+                                <td key={j+'-'+i}>{row[i]}</td>
                             )}
                     </tr>
                 )}

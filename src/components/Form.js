@@ -27,7 +27,7 @@ function Formcontent(props) {
                 ))
             }
             <div className='form-inline justify-content-md-end'>
-                <button id='add-row' onClick={() => props.onAddRow() } className='form-control mb-2 mr-sm-2'>+</button>
+                <button id='add-row' type='button' onClick={() => props.onAddRow() } className='form-control mb-2 mr-sm-2'>+</button>
             </div>
         </div>
     );
