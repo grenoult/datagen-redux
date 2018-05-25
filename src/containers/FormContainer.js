@@ -12,7 +12,7 @@ class FormContainerComponent extends React.Component {
     render() {
         return (<div>
             <div className="row">
-                <div className="col-md-10 col-xs-12">
+                <div className="col-md-12">
                     <form onSubmit={(e) => {e.preventDefault(); this.props.getResult(this.props.criteriaList, this.props.nbRecords)}}>
                         <Form
                             isLoading={this.props.loading}

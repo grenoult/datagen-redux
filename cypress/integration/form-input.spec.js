@@ -27,7 +27,7 @@ describe('Form Input', () => {
         cy.checkFilledinFixtureHeaders(fixtureName);
     });
 
-    it.only('Check number of records returns', () => {
+    it('Check number of records returns', () => {
         cy.fillinFixture(fixtureName);
 
         const numbers = [10, 50, 100, 500];

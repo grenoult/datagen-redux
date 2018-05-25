@@ -13,32 +13,37 @@ const FormRow = ({
     criteriaLength
     }) => (
     <div id={'row-'+id}>
-        <div className='form-inline form-row'>
-            <div className="col-md-10">
-                <input type="text"
-                       name="fieldName"
+        <div className='form-row'>
+            <div className="col-md-3 form-group">
+                <label htmlFor={'fieldName-'+id}>Field Name</label>
+                <input type='text'
+                       name='fieldName'
+                       id={'fieldName-'+id}
                        onChange={event => changeRowName(id, event.target.value)}
                        className='form-control mb-2 mr-sm-2'
                        placeholder='Type field name'
                        value={criteria.name}
                        required/>
+            </div>
+            <div className="col-md-3 form-group">
+                <label htmlFor={'fieldType-'+id}>Field Type</label>
                 <select onChange={event => changeRowType(id, event.target.value)}
                         className='form-control mb-2 mr-sm-2'
-                        name="fieldType"
-                        value={criteria.type}>
+                        name="fieldType">
                     <option value="" disabled>Type</option>
                     {formData.map(function(type, i) {
+                        // TODO not working
                         return (
-                            <option key={i} value={type.name}>
+                            <option key={i} value={type.name} selected={criteria.type === type.name ? 'selected' : ''}>
                                 {type.label}
                             </option>
                         )
                     })}
                 </select>
-                <Subtype rowId={id} criteria={criteria} formData={formData} changeRowSubType={changeRowSubType}/>
             </div>
-            <div className='col-md-2'>
-                <div className="float-right">
+            <Subtype rowId={id} criteria={criteria} formData={formData} changeRowSubType={changeRowSubType}/>
+            <div className="col-md-3 form-group align-text-bottom">
+                <div className="float-right remove-button">
                     <Removebutton rowId={id} criteriaLength={criteriaLength} removeFormRow={removeFormRow}/>
                 </div>
             </div>
@@ -55,8 +60,10 @@ const FormRow = ({
  */
 function Subtype(props)
 {
+    let result;
+    const emptyResult = (<div className="col-md-3 form-group"></div>);
     if (!props || !props.criteria || !props.formData) {
-        return null;
+        return emptyResult;
     }
 
     // Find if there's options
@@ -66,7 +73,7 @@ function Subtype(props)
     }
 
     if (props.formData[i].textinput) {
-        return (
+        result = (
             <input type='text'
                    onChange={event => props.changeRowSubType(props.rowId, event.target.value)}
                    value={props.criteria.subtype}
@@ -74,29 +81,34 @@ function Subtype(props)
                    name="fieldSubtype"
                    className='form-control mb-2 mr-sm-2'/>
         );
+    } else {
+        if (!props.formData[i].options || !props.formData[i].options.options) {
+            return emptyResult;
+        }
+
+        result = (
+            <select onChange={event => props.changeRowSubType(props.rowId, event.target.value)}
+                    value={props.criteria.subtype}
+                    name="fieldSubtype"
+                    className='form-control mb-2 mr-sm-2'>
+                <option value="" disabled>{props.formData[i].options.name}</option>
+                {
+                    // Convert object to array first, then use map to loop through it
+                    Object.entries(props.formData[i].options.options).map(function(subtype, i) {
+                        return (
+                            <option key={i} value={subtype[0]}>
+                                {subtype[1]}
+                            </option>
+                        )
+                    })}
+            </select>
+        );
     }
 
-    if (!props.formData[i].options || !props.formData[i].options.options) {
-        return null
-    }
-
-    return (
-        <select onChange={event => props.changeRowSubType(props.rowId, event.target.value)}
-                value={props.criteria.subtype}
-                name="fieldSubtype"
-                className='form-control mb-2 mr-sm-2'>
-            <option value="" disabled>{props.formData[i].options.name}</option>
-            {
-            // Convert object to array first, then use map to loop through it
-            Object.entries(props.formData[i].options.options).map(function(subtype, i) {
-                return (
-                    <option key={i} value={subtype[0]}>
-                        {subtype[1]}
-                    </option>
-                )
-            })}
-        </select>
-    );
+    return ( <div className="col-md-3 form-group">
+        <label htmlFor={'subType-'+props.rowId}>Subtype</label>
+        {result}
+    </div>);
 }
 
 /**
@@ -109,7 +121,9 @@ function Subtype(props)
 function Removebutton(props)
 {
     return (
-        <button disabled={props.criteriaLength <= 1} className='form-control mb-2 mr-sm-2' onClick={() => props.removeFormRow(props.rowId)}>&times;</button>
+        <button disabled={props.criteriaLength <= 1} className='form-control mb-2 mr-sm-2' onClick={() => props.removeFormRow(props.rowId)}>
+            Remove field {props.rowId}
+        </button>
     )
 }
 
