@@ -9,6 +9,49 @@ class FormContainerComponent extends React.Component {
         this.props.getFormData();
     }
 
+    /**
+     * Display actions such as: number of record, result type, generate data button and load sample form button.
+     */
+    actions() {
+        if (!this.props.loading) {
+            return (
+                <div>
+                    <div className="form-inline justify-content-md-center">
+                        <div className="col-auto">
+                            <select id="formResultNumber"
+                                    onChange={event => this.props.changeNbRecordsNumber(event.target.value)}
+                                    className='form-control mb-2 mr-sm-2'>
+                                <option value="10">10</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="500">500</option>
+                            </select>
+                        </div>
+                        <div className="col-auto">
+                            <select id="formResultType"
+                                    onChange={event => this.props.changeResultType(event.target.value)}
+                                    className='form-control mb-2 mr-sm-2'>
+                                <option value="html">HTML</option>
+                                <option value="csv">CSV</option>
+                                <option value="sql">SQL</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="generate-btn"
+                            type='submit'
+                            className='form-control mb-2 mr-sm-2 btn btn-primary'>
+                        Generate
+                    </button>
+                    <button onClick={this.props.loadSample}
+                            className='form-control mb-2 mr-sm-2 btn btn-light'
+                            type='button'>
+                        Load Sample Data
+                    </button>
+                </div>
+            )
+        }
+    }
+
     render() {
         return (<div>
             <div className="row">
@@ -19,37 +62,7 @@ class FormContainerComponent extends React.Component {
                             onAddRow={this.props.addFormRow}
                             criteriaList={this.props.criteriaList}
                         />
-                        <div className="form-inline justify-content-md-center">
-                            <div className="col-auto">
-                                <select id="formResultNumber"
-                                        onChange={event => this.props.changeNbRecordsNumber(event.target.value)}
-                                        className='form-control mb-2 mr-sm-2'>
-                                    <option value="10">10</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                    <option value="500">500</option>
-                                </select>
-                            </div>
-                            <div className="col-auto">
-                                <select id="formResultType"
-                                        onChange={event => this.props.changeResultType(event.target.value)}
-                                        className='form-control mb-2 mr-sm-2'>
-                                    <option value="html">HTML</option>
-                                    <option value="csv">CSV</option>
-                                    <option value="sql">SQL</option>
-                                </select>
-                            </div>
-                        </div>
-                        <button id="generate-btn"
-                                type='submit'
-                                className='form-control mb-2 mr-sm-2 btn btn-primary'>
-                            Generate
-                        </button>
-                        <button onClick={this.props.loadSample}
-                                className='form-control mb-2 mr-sm-2 btn btn-light'
-                                type='button'>
-                            Load Sample Data
-                        </button>
+                        {this.actions()}
                     </form>
                 </div>
             </div>
