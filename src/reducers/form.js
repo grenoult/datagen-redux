@@ -63,19 +63,21 @@ function form(state = initialState, action) {
                 delete newCriteriaRow.subtype;
             }
 
-            i = 0;
-            while (state.data[i] && state.data[i].name !== newCriteriaRow.type) {
-                i++;
+            let j = 0;
+            while (state.data[j] && state.data[j].name !== newCriteriaRow.type) {
+                j++;
             }
 
-            if (state.data[i] && state.data[i].options && state.data[i].options.options) {
-                newCriteriaRow.subtype = Object.keys(state.data[i].options.options)[0];
+            if (state.data[j] && state.data[j].options && state.data[j].options.options) {
+                newCriteriaRow.subtype = Object.keys(state.data[j].options.options)[0];
             }
 
             // Remove textinput, if any
             if (newCriteriaRow.textinput) {
                 delete newCriteriaRow.textinput;
             }
+
+            newCriteria[i] = newCriteriaRow;
 
             return {
                 ...state,
