@@ -19,9 +19,16 @@ export function startLoadForm() {
     return { type: FORM_LOADING }
 }
 
-export const endLoadForm = function(data) {
+export const endLoadFormSuccess = function(data) {
     return {
         type: FORM_LOADED_SUCCESS,
+        data: data
+    }
+};
+
+export const endLoadFormFailure = function(data) {
+    return {
+        type: FORM_LOADED_FAILURE,
         data: data
     }
 };
@@ -110,19 +117,18 @@ export const getFormData = () => {
         dispatch(startLoadForm());
 
         return fetch('http://randomdata.info:8081/api/fields')
-            .then(
-                response => response.json(),
-                (error) => {
-                    console.error(error);
+            .then(res => {
+                if (res.status !== 200) {
+                    throw new Error(res.statusText);
                 }
-            )
-            .then(json => {
-                if (Object.keys(json).length === 0) {
-                    // TODO meh looks not good here... Refactor
-                    return [dispatch(endLoadForm())]
-                }
-                return [dispatch(endLoadForm(json)), dispatch(addFormRow())]
+                return res.json();
             })
+            .then(json => {
+                return [dispatch(endLoadFormSuccess(json)), dispatch(addFormRow())]
+            })
+            .catch(err => {
+                return dispatch(endLoadFormFailure(err.message))
+            });
     }
 };
 

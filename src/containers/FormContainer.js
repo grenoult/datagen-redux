@@ -13,7 +13,7 @@ class FormContainerComponent extends React.Component {
      * Display actions such as: number of record, result type, generate data button and load sample form button.
      */
     actions() {
-        if (!this.props.loading) {
+        if (!this.props.loading && !this.props.error) {
             return (
                 <div>
                     <div className="form-inline justify-content-md-center">
@@ -61,6 +61,8 @@ class FormContainerComponent extends React.Component {
                             isLoading={this.props.loading}
                             onAddRow={this.props.addFormRow}
                             criteriaList={this.props.criteriaList}
+                            error={this.props.error}
+                            errorMessage={this.props.errorMessage}
                         />
                         {this.actions()}
                     </form>
@@ -73,7 +75,9 @@ class FormContainerComponent extends React.Component {
 const mapStateToProps = state => ({
     loading: state.form.loading,
     criteriaList: state.form.criteria,
-    nbRecords: state.form.nbRecords
+    nbRecords: state.form.nbRecords,
+    error: state.form.error,
+    errorMessage: state.form.errorMessage,
 });
 
 const mapDispatchToProps = {

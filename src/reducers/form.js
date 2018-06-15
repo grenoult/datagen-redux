@@ -1,6 +1,7 @@
 import {
     FORM_ADD_ROW,
     FORM_LOADED_SUCCESS,
+    FORM_LOADED_FAILURE,
     FORM_LOADING,
     FORM_ROW_NAME_CHANGED,
     FORM_ROW_SUBTYPE_CHANGED,
@@ -18,7 +19,8 @@ const initialState =  {
     data: [],
     criteria: [],
     nbRecords: 10,
-    resultType: 'html'
+    resultType: 'html',
+    error: false,
 };
 
 function form(state = initialState, action) {
@@ -36,6 +38,14 @@ function form(state = initialState, action) {
                 loaded: true,
                 loading: false,
                 data: action.data
+            };
+        case FORM_LOADED_FAILURE:
+            return {
+                ...state,
+                loaded: true,
+                loading: false,
+                error: true,
+                errorMessage: action.data
             };
         case FORM_ADD_ROW:
             let newId = getBiggestCriteriaId(state)+1;

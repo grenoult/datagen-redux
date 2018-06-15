@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FormRowContainer from '../containers/FormRowContainer'
 
-const Form = ({ isLoading, onAddRow, criteriaList }) => (
-    <Formcontent isLoading={isLoading} onAddRow={onAddRow} criteriaList={criteriaList}/>
+const Form = ({ isLoading, onAddRow, criteriaList, error, errorMessage }) => (
+    <Formcontent isLoading={isLoading} onAddRow={onAddRow} criteriaList={criteriaList} error={error} errorMessage={errorMessage}/>
 );
 
 function Formcontent(props) {
@@ -13,6 +13,21 @@ function Formcontent(props) {
                 Loading...
             </div>
         );
+    }
+
+    if (props.error) {
+        let message;
+        if (props.errorMessage && props.errorMessage.length > 0) {
+            message = 'Message: '+props.errorMessage;
+        }
+
+        return (
+            <div className='alert alert-danger'>
+                Oops, something went wrong!<br/>
+                Please try again later.<br/>
+                {message}
+            </div>
+        )
     }
 
     return (

@@ -65,6 +65,6 @@ Cypress.Commands.add('checkFilledinFixtureHeaders', (fixtureName) => {
             formdata.forEach(function (row, i) {
                 cy.get('thead > tr > :nth-child('+(i+1)+')').contains(row.name);
             });
-            cy.get('thead > tr > td').should('have.length', formdata.length)
+            cy.get('thead > tr > th').should('have.length', formdata.length)
         });
 });
