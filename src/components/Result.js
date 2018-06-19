@@ -1,5 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import HtmlResult from './result/html'
+import CsvResult from './result/csv'
+import SqlResult from './result/sql'
 
 const Result = ({ loading, loaded, result, resultType }) => (
     <Resultcontent loading={loading} loaded={loaded} result={result} resultType={resultType}/>
@@ -23,113 +26,18 @@ function Resultcontent(props) {
     }
 
     if (props.resultType === 'html') {
-        return <Htmlresult result={props.result}/>
+        return <HtmlResult result={props.result}/>
     }
 
     if (props.resultType === 'csv') {
-        return <Csvresult result={props.result}/>
+        return <CsvResult result={props.result}/>
     }
 
     if (props.resultType === 'sql') {
-        return <Sqlresult result={props.result}/>
+        return <SqlResult result={props.result}/>
     }
 
     return null;
-}
-
-/**
- *  Creates HTML output.
- *
- * @param props
- * @returns {*}
- * @constructor
- */
-function Htmlresult(props) {
-    let headers = Object.keys(props.result[0]);
-    return (
-        <table className="table">
-            <thead>
-                <tr>
-                    {
-                        headers.map((title,i) =>
-                            <th key={i}>{title}</th>
-                        )}
-                </tr>
-            </thead>
-            <tbody>
-            {
-                props.result.map((row, j) =>
-                    <tr key={j}>
-                        {
-                            Object.keys(row).map(i =>
-                                <td key={j+'-'+i}>{row[i]}</td>
-                            )}
-                    </tr>
-                )}
-            </tbody>
-        </table>
-    );
-}
-
-/**
- *  Creates CSV output.
- *
- * @param props
- * @returns {*}
- * @constructor
- */
-function Csvresult(props) {
-    let headers = Object.keys(props.result[0]);
-    let csv = headers.join(',') + "\n";
-
-    for (let i in props.result) {
-        if (props.result.hasOwnProperty(i)) {
-            for (let j in props.result[i]) {
-                if (props.result[i].hasOwnProperty(j)) {
-                    csv = csv + props.result[i][j] + ',';
-                }
-            }
-        }
-
-        csv = csv.slice(0, -1) + "\n";
-    }
-
-    return <pre>{csv}</pre>;
-}
-
-/**
- *  Creates SQL output.
- *
- * @param props
- * @constructor
- */
-function Sqlresult(props) {
-    let sql = '';
-    let headerSql = 'INSERT INTO table_name(';
-    let i = 0;
-
-    for (let record in props.result) {
-        if (props.result.hasOwnProperty(record)) {
-            for (let j in props.result[record]) {
-                if (props.result[record].hasOwnProperty(j)) {
-                    if (props.result[record][j]) {
-                        // Header
-                        if (i === 0) {
-                            headerSql = headerSql + j + ', ';
-                        }
-                        // Column
-                        sql = sql + '"' + props.result[record][j] + '", ';
-                    }
-                }
-            }
-        }
-        sql = sql.slice(0, -2) + '),\n(';
-        i++;
-    }
-
-    sql = headerSql.slice(0, -2) + ') VALUES \n(' + sql.slice(0, -3) + ';';
-    sql = sql.replace(/^\s+|\s+$/g, '');
-    return <pre>{sql}</pre>;
 }
 
 Result.propTypes = {
