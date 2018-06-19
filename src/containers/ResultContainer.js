@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getResult, addFormRow, startGeneratingData } from '../actions'
+import { getResult, addFormRow } from '../actions/form'
+import { startGeneratingData } from '../actions/result'
 import Result from '../components/Result'
 
 class ResultContainerComponent extends React.Component {

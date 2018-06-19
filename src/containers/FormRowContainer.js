@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import FormRow from '../components/FormRow'
-import {changeRowType, changeRowSubType, changeRowTextInput, changeRowName, removeFormRow} from '../actions'
+import {changeRowType, changeRowSubType, changeRowTextInput, changeRowName, removeFormRow} from '../actions/form'
 
 class FormRowContainer extends React.Component {
     render() {

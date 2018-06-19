@@ -1,4 +1,4 @@
-import {RESULT_LOADING, RESULT_LOADED} from "../actions";
+import {RESULT_LOADING, RESULT_LOADED} from "../actions/result";
 
 const initialState =  {
     loaded: false,

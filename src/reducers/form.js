@@ -11,7 +11,7 @@ import {
     FORM_NB_RECORDS_CHANGED,
     FORM_RESULT_TYPE_CHANGED,
     FORM_LOAD_SAMPLE
-} from "../actions";
+} from "../actions/form";
 
 const initialState =  {
     loaded: false,

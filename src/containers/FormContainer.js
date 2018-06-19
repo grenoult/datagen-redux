@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getFormData, addFormRow, getResult, changeNbRecordsNumber, changeResultType, loadSample } from '../actions'
+import { getFormData, addFormRow, getResult, changeNbRecordsNumber, changeResultType, loadSample } from '../actions/form'
 import Form from '../components/Form'
 
 class FormContainerComponent extends React.Component {
