@@ -168,7 +168,7 @@ function form(state = initialState, action) {
                     {"id": 8,"name":"city","type":"city","subtype":""},
                     {"id": 9,"name":"phone","type":"phone","subtype":"us"},
                     {"id": 10,"name":"startdate","type":"date","subtype":"past"},
-                    {"id": 11,"name":"creditcard","type":"regex","subtype":"^4[0-9]12(?:[0-9]3)?$"}
+                    { "id": 11, "name": "creditcard", "type": "regex", "subtype":"^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$"}
                     ]
             };
 

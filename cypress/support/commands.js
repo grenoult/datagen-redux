@@ -26,7 +26,7 @@
 
 Cypress.Commands.add('loadPage', () => {
     cy.server();
-    cy.route('GET', 'http://randomdata.info:8081/api/fields')
+    cy.route('GET', 'api/v2/fields')
         .as('loadFields');
     cy.visit('/');
     cy.wait('@loadFields');

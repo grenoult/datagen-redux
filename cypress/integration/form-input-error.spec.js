@@ -3,7 +3,7 @@ describe('Form submission with error', () => {
         cy.server();
         cy.route({
             method: 'GET',
-            url: 'http://randomdata.info:8081/api/fields',
+            url: 'api/v2/fields',
             status: 500,
             response: {}
         }).as('loadFieldError');

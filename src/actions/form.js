@@ -14,6 +14,9 @@ export const FORM_NB_RECORDS_CHANGED = 'FORM_NB_RECORDS_CHANGED';
 export const FORM_RESULT_TYPE_CHANGED = 'FORM_RESULT_TYPE_CHANGED';
 export const FORM_LOAD_SAMPLE = 'FORM_LOAD_SAMPLE';
 
+const baseUrl = 'http://randomdata.info:8081';
+// const baseUrl = 'http://192.168.33.10';
+
 export function startLoadForm() {
     return { type: FORM_LOADING }
 }
@@ -102,7 +105,7 @@ export const getFormData = () => {
     return (dispatch) => {
         dispatch(startLoadForm());
 
-        return fetch('http://randomdata.info:8081/api/fields')
+        return fetch(baseUrl+'/api/v2/fields')
             .then(res => {
                 if (res.status !== 200) {
                     throw new Error(res.statusText);
@@ -122,13 +125,11 @@ export const getResult = (criteriaList, nbRecords) => {
     return (dispatch) => {
         dispatch(startGeneratingData());
 
-        let data = {
-            query: JSON.stringify({"queryFields": criteriaList, "records": nbRecords})
-        };
+        console.log({ "fields": criteriaList, "records": nbRecords });
 
-        return fetch('http://randomdata.info:8081/api/generate', {
+        return fetch(baseUrl+'/api/v2/generate', {
             method: 'POST',
-            body: JSON.stringify(data),
+            body: JSON.stringify({fields: criteriaList, records: nbRecords}),
             headers: {
                 "Content-Type": "application/json"
             }
