@@ -121,7 +121,7 @@ export const getFormData = () => {
     }
 };
 
-export const getResult = (criteriaList, nbRecords) => {
+export const getResultFromForm = (criteriaList, nbRecords) => {
     return (dispatch) => {
         dispatch(startGeneratingData());
 
@@ -130,6 +130,25 @@ export const getResult = (criteriaList, nbRecords) => {
         return fetch(baseUrl+'/api/v2/generate', {
             method: 'POST',
             body: JSON.stringify({fields: criteriaList, records: nbRecords}),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(
+                response => response.json(),
+                error => console.log('An error occurred.', error)
+            )
+            .then(json => {return dispatch(endGeneratingData(json))})
+    }
+};
+
+export const getResultFromScript = (sqlScript, nbRecords) => {
+    return (dispatch) => {
+        dispatch(startGeneratingData());
+
+        return fetch(baseUrl+'api/v2/generate-from-script', {
+            method: 'POST',
+            body: JSON.stringify({sqlScript: sqlScript, records: nbRecords}),
             headers: {
                 "Content-Type": "application/json"
             }

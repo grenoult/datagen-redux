@@ -37,6 +37,19 @@ function Resultcontent(props) {
         return <SqlResult result={props.result}/>
     }
 
+    if (props.resultType === 'sql_from_script') {
+        const results = [];
+        for (const tableName in props.result) {
+            // TODO add unique ID
+            results.push(<SqlResult key={tableName} result={props.result[tableName]} tableName={tableName}/>);
+        }
+        // TODO change <div> to something better
+        // TODO any impact on the other page (filled by form)?
+        return <pre>
+            {results}
+        </pre>
+    }
+
     return null;
 }
 
