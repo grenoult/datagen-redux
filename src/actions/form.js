@@ -15,7 +15,7 @@ export const FORM_RESULT_TYPE_CHANGED = 'FORM_RESULT_TYPE_CHANGED';
 export const FORM_LOAD_SAMPLE = 'FORM_LOAD_SAMPLE';
 
 const baseUrl = 'http://randomdata.info:8081';
-// const baseUrl = 'http://192.168.33.10';
+// const baseUrl = 'http://localhost:22000/'; // Local Docker container
 
 export function startLoadForm() {
     return { type: FORM_LOADING }
