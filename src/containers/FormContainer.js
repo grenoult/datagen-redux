@@ -56,7 +56,7 @@ class FormContainerComponent extends React.Component {
         return (<div>
             <div className="row">
                 <div className="col-md-12">
-                    <form onSubmit={(e) => {e.preventDefault(); this.props.getResult(this.props.criteriaList, this.props.nbRecords)}}>
+                    <form onSubmit={(e) => {e.preventDefault(); this.props.getResultFromForm(this.props.criteriaList, this.props.nbRecords)}}>
                         <Form
                             isLoading={this.props.loading}
                             onAddRow={this.props.addFormRow}
