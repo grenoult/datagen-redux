@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getResultFromForm, addFormRow } from '../actions/form'
+import { getResultFromForm } from '../actions/form'
 import { startGeneratingData } from '../actions/result'
 import Result from '../components/Result'
 
@@ -26,7 +26,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     getResultFromForm,
-    addFormRow,
     startGeneratingData,
 };
 

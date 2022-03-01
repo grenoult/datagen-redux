@@ -5,6 +5,7 @@ export const FORM_LOADING = 'FORM_LOADING';
 export const FORM_LOADED_SUCCESS = 'FORM_LOADED_SUCCESS';
 export const FORM_LOADED_FAILURE = 'FORM_LOADED_FAILURE';
 export const FORM_ADD_ROW = 'FORM_ADD_ROW';
+export const FORM_ADD_FIRST_ROW = 'FORM_ADD_FIRST_ROW';
 export const FORM_ROW_TYPE_CHANGED = 'FORM_ROW_TYPE_CHANGED';
 export const FORM_ROW_SUBTYPE_CHANGED = 'FORM_ROW_SUBTYPE_CHANGED';
 export const FORM_ROW_TEXTINPUT_CHANGED = 'FORM_ROW_TEXTINPUT_CHANGED';
@@ -73,6 +74,12 @@ export const addFormRow = function() {
     }
 };
 
+export const addFormFirstRow = function() {
+    return {
+        type: FORM_ADD_FIRST_ROW
+    }
+};
+
 export const removeFormRow = function(rowId) {
     return {
         type: FORM_ROW_REMOVED,
@@ -113,7 +120,7 @@ export const getFormData = () => {
                 return res.json();
             })
             .then(json => {
-                return [dispatch(endLoadFormSuccess(json)), dispatch(addFormRow())]
+                return [dispatch(endLoadFormSuccess(json)), dispatch(addFormFirstRow())]
             })
             .catch(err => {
                 return dispatch(endLoadFormFailure(err.message))

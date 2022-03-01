@@ -1,5 +1,6 @@
 import {
     FORM_ADD_ROW,
+    FORM_ADD_FIRST_ROW,
     FORM_LOADED_SUCCESS,
     FORM_LOADED_FAILURE,
     FORM_LOADING,
@@ -37,7 +38,8 @@ function form(state = initialState, action) {
                 ...state,
                 loaded: true,
                 loading: false,
-                data: action.data
+                data: action.data,
+                resultType: 'html' // by default, load HTML result
             };
         case FORM_LOADED_FAILURE:
             return {
@@ -48,6 +50,17 @@ function form(state = initialState, action) {
                 errorMessage: action.data
             };
         case FORM_ADD_ROW:
+        case FORM_ADD_FIRST_ROW:
+            if (action.type === FORM_ADD_FIRST_ROW && state.criteria.length > 0) {
+                /**
+                 * If we load the form on the first page and there's already a row, 
+                 * we don't do anything.
+                 * This is to resolve a bug where every time we come back to the form page
+                 * from another page, a new row is added.
+                 */
+                return {...state};
+            }
+
             let newId = getBiggestCriteriaId(state)+1;
             let type = state.data[0].name;
             newCriteria = {id: newId, type: type};
