@@ -5,6 +5,7 @@ export const FORM_LOADING = 'FORM_LOADING';
 export const FORM_LOADED_SUCCESS = 'FORM_LOADED_SUCCESS';
 export const FORM_LOADED_FAILURE = 'FORM_LOADED_FAILURE';
 export const FORM_ADD_ROW = 'FORM_ADD_ROW';
+export const FORM_ADD_FIRST_ROW = 'FORM_ADD_FIRST_ROW';
 export const FORM_ROW_TYPE_CHANGED = 'FORM_ROW_TYPE_CHANGED';
 export const FORM_ROW_SUBTYPE_CHANGED = 'FORM_ROW_SUBTYPE_CHANGED';
 export const FORM_ROW_TEXTINPUT_CHANGED = 'FORM_ROW_TEXTINPUT_CHANGED';
@@ -15,7 +16,7 @@ export const FORM_RESULT_TYPE_CHANGED = 'FORM_RESULT_TYPE_CHANGED';
 export const FORM_LOAD_SAMPLE = 'FORM_LOAD_SAMPLE';
 
 const baseUrl = 'http://randomdata.info:8081';
-// const baseUrl = 'http://192.168.33.10';
+// const baseUrl = 'http://localhost:22000/'; // Local Docker container
 
 export function startLoadForm() {
     return { type: FORM_LOADING }
@@ -73,6 +74,12 @@ export const addFormRow = function() {
     }
 };
 
+export const addFormFirstRow = function() {
+    return {
+        type: FORM_ADD_FIRST_ROW
+    }
+};
+
 export const removeFormRow = function(rowId) {
     return {
         type: FORM_ROW_REMOVED,
@@ -113,7 +120,7 @@ export const getFormData = () => {
                 return res.json();
             })
             .then(json => {
-                return [dispatch(endLoadFormSuccess(json)), dispatch(addFormRow())]
+                return [dispatch(endLoadFormSuccess(json)), dispatch(addFormFirstRow())]
             })
             .catch(err => {
                 return dispatch(endLoadFormFailure(err.message))
@@ -121,7 +128,7 @@ export const getFormData = () => {
     }
 };
 
-export const getResult = (criteriaList, nbRecords) => {
+export const getResultFromForm = (criteriaList, nbRecords) => {
     return (dispatch) => {
         dispatch(startGeneratingData());
 
@@ -130,6 +137,25 @@ export const getResult = (criteriaList, nbRecords) => {
         return fetch(baseUrl+'/api/v2/generate', {
             method: 'POST',
             body: JSON.stringify({fields: criteriaList, records: nbRecords}),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(
+                response => response.json(),
+                error => console.log('An error occurred.', error)
+            )
+            .then(json => {return dispatch(endGeneratingData(json))})
+    }
+};
+
+export const getResultFromScript = (sqlScript, nbRecords) => {
+    return (dispatch) => {
+        dispatch(startGeneratingData());
+
+        return fetch(baseUrl+'api/v2/generate-from-script', {
+            method: 'POST',
+            body: JSON.stringify({sqlScript: sqlScript, records: nbRecords}),
             headers: {
                 "Content-Type": "application/json"
             }

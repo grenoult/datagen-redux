@@ -5,7 +5,7 @@ describe('Pages', () => {
 
     it('Check nav bar', () => {
         cy.get('a.navbar-brand').contains('Data Generator');
-        cy.get('a.nav-link:first').contains('Help');
+        cy.get('a.nav-link:first').contains('Import SQL (New!)');
         cy.get('a.nav-link:last').contains('About');
     });
 
@@ -17,16 +17,10 @@ describe('Pages', () => {
     });
 
     it('Check Help link', () => {
-        cy.get('a.nav-link:first').should('have.attr', 'href').and('include', 'help')
-            .then((href) => {
-                cy.visit(href)
-            })
+        cy.get('a.nav-link:contains("Help")').click();
     });
 
     it('Check About link', () => {
-        cy.get('a.nav-link:last').should('have.attr', 'href').and('include', 'about')
-            .then((href) => {
-                cy.visit(href)
-            })
+        cy.get('a.nav-link:contains("About")').click();
     });
 });

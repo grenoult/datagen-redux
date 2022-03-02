@@ -1,6 +1,5 @@
 import 'babel-polyfill'
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -8,10 +7,11 @@ import { Provider } from 'react-redux';
 import datagenApp from './reducers/Datagenapp';
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
-import { Switch, Route, Link, withRouter } from 'react-router-dom'
+import { Switch, Route, Link } from 'react-router-dom'
 import HomeContainerComponent from "./containers/HomeContainer";
 import HelpContainerComponent from "./containers/HelpContainer";
 import AboutContainerComponent from "./containers/AboutContainer";
+import ImportSqlContainer from './containers/ImportSqlContainer';
 
 const loggerMiddleware = createLogger();
 
@@ -47,6 +47,7 @@ class App extends Component {
                             <div className="navbar-nav">
                                 {/*<a className="nav-item nav-link active" href="#">Home <span*/}
                                     {/*className="sr-only">(current)</span></a>*/}
+                                <Link className="nav-item nav-link" to='/import-sql'>Import SQL (New!)</Link>
                                 <Link className="nav-item nav-link" to='/help'>Help</Link>
                                 <Link className="nav-item nav-link" to='/about'>About</Link>
                             </div>
@@ -55,6 +56,7 @@ class App extends Component {
                     {/*Routes are defined here*/}
                     <Switch>
                         <Route exact path='/' component={HomeContainerComponent}/>
+                        <Route exact path='/import-sql' component={ImportSqlContainer}/>
                         <Route exact path='/help' component={HelpContainerComponent}/>
                         <Route exact path='/about' component={AboutContainerComponent}/>
                     </Switch>

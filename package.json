@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "cross-fetch": "^3.0.1",
-    "npm-check": "^5.9.0",
+    "cross-fetch": "^3.1.4",
+    "npm-check": "^5.9.2",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-redux": "^6.0.1",
@@ -20,10 +20,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "cy:run": "cypress run"
   },
   "devDependencies": {
-    "cypress": "^3.1.5",
+    "cypress": "^9.5.0",
     "eslint-plugin-flowtype": "^3.4.2",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",

@@ -8,7 +8,13 @@ import React from 'react'
  */
 const SqlResult = (props) => {
     let sql = '';
-    let headerSql = 'INSERT INTO table_name(';
+    let tableName = 'table_name';
+
+    if (props.tableName) {
+        tableName = props.tableName;
+    }
+
+    let headerSql = `INSERT INTO ${tableName}(`;
     let i = 0;
 
     for (let record in props.result) {

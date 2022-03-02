@@ -3,16 +3,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 # Installation on Windows
 - `git clone`
 - `cd datagen-redux`
-- `npm install -g create-react-app`
-- `npm install --save-dev eslint-plugin-import eslint-plugin-react eslint-plugin-flowtype eslint-plugin-jsx-a11y@5`
-- `npm install --save redux`
-- `npm install --save react-redux`
-- `npm install --save cross-fetch`
-- `npm install --save redux-logger`
-- `npm install --save redux-thunk`
-- `npm install --save babel-polyfill`
-- `npm install --save-dev redux-devtools-extension`
+- `npm install`
 - `npm start`
 
 # Production build
 - `npm run build`
+
+# Run Cypress (local GUI)
+To run with WSL2, please install VcXsrv and follow [this guide](https://nickymeuleman.netlify.app/blog/gui-on-wsl2-cypress). If stuck, double-check if any GUI program works, for example `gedit` and use [this other guide](https://stackoverflow.com/a/61110604/1145134)
+- `npm run cypress`

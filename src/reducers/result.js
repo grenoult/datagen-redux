@@ -1,4 +1,8 @@
-import {RESULT_LOADING, RESULT_LOADED} from "../actions/result";
+import {
+    RESULT_LOADING, 
+    RESULT_LOADED,
+    RESULT_RESET
+} from "../actions/result";
 
 const initialState =  {
     loaded: false,
@@ -22,6 +26,13 @@ function result(state = initialState, action) {
                 loading: false,
                 data: action.value
             };
+        case RESULT_RESET:
+            return {
+                ...state,
+                loaded: false,
+                loading: false,
+                data: null
+            }
         default:
             return state;
     }

@@ -29,12 +29,14 @@ const FormRow = ({
                 <label htmlFor={'fieldType-'+id}>Field Type</label>
                 <select onChange={event => changeRowType(id, event.target.value)}
                         className='form-control mb-2 mr-sm-2'
-                        name="fieldType">
+                        name="fieldType"
+                        defaultValue={criteria.type} // TODO test
+                        >
                     <option value="" disabled>Type</option>
                     {formData.map(function(type, i) {
                         // TODO not working
                         return (
-                            <option key={i} value={type.name} selected={criteria.type === type.name ? 'selected' : ''}>
+                            <option key={i} value={type.name}>
                                 {type.label}
                             </option>
                         )

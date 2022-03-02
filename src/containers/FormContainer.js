@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getFormData, addFormRow, getResult, changeNbRecordsNumber, changeResultType, loadSample } from '../actions/form'
+import { getFormData, addFormRow, getResultFromForm, changeNbRecordsNumber, changeResultType, loadSample } from '../actions/form'
 import Form from '../components/Form'
 
 class FormContainerComponent extends React.Component {
@@ -56,7 +56,7 @@ class FormContainerComponent extends React.Component {
         return (<div>
             <div className="row">
                 <div className="col-md-12">
-                    <form onSubmit={(e) => {e.preventDefault(); this.props.getResult(this.props.criteriaList, this.props.nbRecords)}}>
+                    <form onSubmit={(e) => {e.preventDefault(); this.props.getResultFromForm(this.props.criteriaList, this.props.nbRecords)}}>
                         <Form
                             isLoading={this.props.loading}
                             onAddRow={this.props.addFormRow}
@@ -83,7 +83,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     getFormData,
     addFormRow,
-    getResult,
+    getResultFromForm,
     changeNbRecordsNumber,
     changeResultType,
     loadSample
