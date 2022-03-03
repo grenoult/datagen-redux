@@ -16,7 +16,7 @@ export const FORM_RESULT_TYPE_CHANGED = 'FORM_RESULT_TYPE_CHANGED';
 export const FORM_LOAD_SAMPLE = 'FORM_LOAD_SAMPLE';
 
 const baseUrl = 'http://randomdata.info:8081';
-// const baseUrl = 'http://localhost:22000/'; // Local Docker container
+// const baseUrl = 'http://localhost:22000'; // Local Docker container
 
 export function startLoadForm() {
     return { type: FORM_LOADING }
@@ -153,7 +153,7 @@ export const getResultFromScript = (sqlScript, nbRecords) => {
     return (dispatch) => {
         dispatch(startGeneratingData());
 
-        return fetch(baseUrl+'api/v2/generate-from-script', {
+        return fetch(baseUrl+'/api/v2/generate-from-script', {
             method: 'POST',
             body: JSON.stringify({sqlScript: sqlScript, records: nbRecords}),
             headers: {
